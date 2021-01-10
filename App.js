@@ -1,6 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Platform,
+  Text,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
@@ -17,12 +23,12 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={{ fontFamily: "NotoSansJP_500Medium", fontSize: 200 }}>
         お
       </Text>
-      <StatusBar style="auto" />
-    </View>
+      <ExpoStatusBar style="light" />
+    </SafeAreaView>
   );
 }
 
@@ -30,7 +36,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
