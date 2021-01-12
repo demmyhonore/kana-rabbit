@@ -1,16 +1,14 @@
 import React from "react";
-import { StyleSheet, Platform, StatusBar, SafeAreaView } from "react-native";
+import AppLoading from "expo-app-loading";
 import {
   useFonts,
   NotoSansJP_500Medium,
 } from "@expo-google-fonts/noto-sans-jp";
-import AppLoading from "expo-app-loading";
 
-import colors from "./app/config/colors";
 import KanaScreen from "./app/screens/KanaScreen";
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     NotoSansJP_500Medium,
   });
 
@@ -18,17 +16,5 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <KanaScreen />
-    </SafeAreaView>
-  );
+  return <KanaScreen />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.white,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-});
