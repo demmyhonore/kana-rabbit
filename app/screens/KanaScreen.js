@@ -1,28 +1,28 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
 
-import colors from "../config/colors";
 import Screen from "../components/Screen";
+import KanaInput from "../components/KanaInput";
 
 export default function KanaScreen() {
+  const [kanaValue, onChangeKanaValue] = React.useState("");
+
   return (
-    <Screen style={styles.root}>
+    <Screen style={styles.screen}>
       <Text style={styles.kana}>お</Text>
-      <StatusBar style="light" />
+      <KanaInput value={kanaValue} onChange={onChangeKanaValue} />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  root: {
-    backgroundColor: colors.white,
+  screen: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "space-around",
   },
   kana: {
-    fontFamily: "NotoSansJP_500Medium",
+    fontFamily: "KosugiMaru_400Regular",
     fontSize: 200,
   },
 });

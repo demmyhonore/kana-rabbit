@@ -1,4 +1,4 @@
 export default {
-  primary: "azureblue",
+  black: "#000",
   white: "#fff",
 };

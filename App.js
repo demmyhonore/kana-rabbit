@@ -1,20 +1,17 @@
 import React from "react";
+
 import AppLoading from "expo-app-loading";
 import {
   useFonts,
-  NotoSansJP_500Medium,
-} from "@expo-google-fonts/noto-sans-jp";
+  KosugiMaru_400Regular,
+} from "@expo-google-fonts/kosugi-maru";
 
 import KanaScreen from "./app/screens/KanaScreen";
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    NotoSansJP_500Medium,
-  });
+  const [fontsLoaded] = useFonts({ KosugiMaru_400Regular });
 
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
+  if (!fontsLoaded) return <AppLoading />;
 
   return <KanaScreen />;
 }

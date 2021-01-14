@@ -8,7 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@expo-google-fonts/noto-sans-jp": "^0.1.0",
+    "@expo-google-fonts/kosugi-maru": "^0.1.0",
     "expo": "~40.0.0",
     "expo-app-loading": "^1.0.1",
     "expo-constants": "~9.3.3",
