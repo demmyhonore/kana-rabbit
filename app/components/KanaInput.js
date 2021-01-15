@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { StyleSheet, TextInput } from "react-native";
 
 import colors from "../config/colors";
@@ -24,3 +25,8 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.black,
   },
 });
+
+KanaInput.propTypes = {
+  vaue: PropTypes.string,
+  onChange: PropTypes.func,
+};

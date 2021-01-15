@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 
 import Screen from "../components/Screen";
 import KanaInput from "../components/KanaInput";
@@ -8,8 +8,10 @@ export default function KanaScreen() {
   const [kanaValue, onChangeKanaValue] = React.useState("");
 
   return (
-    <Screen style={styles.screen}>
-      <Text style={styles.kana}>お</Text>
+    <Screen style={styles.screen} keyboardAvoiding>
+      <View>
+        <Text style={styles.kana}>お</Text>
+      </View>
       <KanaInput value={kanaValue} onChange={onChangeKanaValue} />
     </Screen>
   );
