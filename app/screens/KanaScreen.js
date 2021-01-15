@@ -4,15 +4,21 @@ import { StyleSheet, View, Text } from "react-native";
 import Screen from "../components/Screen";
 import KanaInput from "../components/KanaInput";
 
+import defaultStyles from "../config/styles";
+
 export default function KanaScreen() {
   const [kanaValue, onChangeKanaValue] = React.useState("");
 
   return (
     <Screen style={styles.screen} keyboardAvoiding>
       <View>
-        <Text style={styles.kana}>お</Text>
+        <Text style={[defaultStyles.kana, styles.kana]}>お</Text>
       </View>
-      <KanaInput value={kanaValue} onChange={onChangeKanaValue} />
+      <KanaInput
+        value={kanaValue}
+        onChange={onChangeKanaValue}
+        placeholder="Type your kana"
+      />
     </Screen>
   );
 }
@@ -24,7 +30,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   kana: {
-    fontFamily: "KosugiMaru_400Regular",
     fontSize: 200,
   },
 });

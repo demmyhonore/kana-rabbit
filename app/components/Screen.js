@@ -19,12 +19,9 @@ export default function Screen({ children, style, keyboardAvoiding }) {
   }
 
   return (
-    <View
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={[styles.screen, style]}
-    >
+    <View style={[styles.screen, style]}>
       {children}
-      <StatusBar style={statusBarStyle} />
+      <StatusBar translucent={true} />
     </View>
   );
 }
@@ -38,6 +35,5 @@ const styles = StyleSheet.create({
 
 Screen.propTypes = {
   style: PropTypes.object,
-  statusBarStyle: PropTypes.string,
   keyboardAvoiding: PropTypes.bool,
 };
