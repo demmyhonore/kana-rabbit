@@ -5,12 +5,7 @@ import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 
-export default function Screen({
-  children,
-  style,
-  statusBarStyle = "light",
-  keyboardAvoiding,
-}) {
+export default function Screen({ children, style, keyboardAvoiding }) {
   if (keyboardAvoiding) {
     return (
       <KeyboardAvoidingView
@@ -18,7 +13,7 @@ export default function Screen({
         style={[styles.screen, style]}
       >
         {children}
-        <StatusBar style={statusBarStyle} />
+        <StatusBar translucent={true} />
       </KeyboardAvoidingView>
     );
   }
