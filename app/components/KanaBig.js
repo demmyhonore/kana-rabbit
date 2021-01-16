@@ -8,7 +8,7 @@ export default function KanaBig({ kana }) {
   // Wrapped in view for fluid avoid keyboard transition bug
   return (
     <View>
-      <Text style={[defaultStyles.kana, styles.kana]}>{kana.hiragana}</Text>
+      <Text style={[defaultStyles.kana, styles.kana]}>{kana.symbol}</Text>
     </View>
   );
 }
