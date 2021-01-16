@@ -4,14 +4,14 @@ import { StyleSheet, TextInput } from "react-native";
 
 import defaultStyles from "../config/styles";
 
-export default function KanaInput({ value, onChange, placeholder }) {
+export default function KanaInput({ value, onChange, placeholder, maxlength }) {
   return (
     <TextInput
       style={styles.input}
-      maxLength={4}
+      onChangeText={onChange}
       value={value}
       placeholder={placeholder}
-      onChangeText={onChange}
+      maxLength={maxlength}
       autoCorrect={false}
       autoCapitalize="none"
       textContentType="none"
@@ -31,4 +31,5 @@ KanaInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  maxlength: PropTypes.number,
 };

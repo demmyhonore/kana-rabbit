@@ -1,23 +1,21 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 
 import Screen from "../components/Screen";
+import KanaBig from "../components/KanaBig";
 import KanaInput from "../components/KanaInput";
 
-import defaultStyles from "../config/styles";
-
 export default function KanaScreen() {
-  const [kanaValue, onChangeKanaValue] = React.useState("");
+  const [kanaInputValue, setKanaInputValue] = useState("");
 
   return (
-    <Screen style={styles.screen} keyboardAvoiding>
-      <View>
-        <Text style={[defaultStyles.kana, styles.kana]}>お</Text>
-      </View>
+    <Screen style={styles.screen} avoidKeyboard>
+      <KanaBig kana={{ hiragana: "お" }} />
       <KanaInput
-        value={kanaValue}
-        onChange={onChangeKanaValue}
+        value={kanaInputValue}
+        onChange={setKanaInputValue}
         placeholder="Type your kana"
+        maxLength={4}
       />
     </Screen>
   );
@@ -28,8 +26,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "space-around",
-  },
-  kana: {
-    fontSize: 200,
   },
 });

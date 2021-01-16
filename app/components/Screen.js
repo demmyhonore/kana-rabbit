@@ -5,8 +5,8 @@ import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import Constants from "expo-constants";
 import { StatusBar } from "expo-status-bar";
 
-export default function Screen({ children, style, keyboardAvoiding }) {
-  if (keyboardAvoiding) {
+export default function Screen({ children, style, avoidKeyboard }) {
+  if (avoidKeyboard) {
     return (
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -35,5 +35,5 @@ const styles = StyleSheet.create({
 
 Screen.propTypes = {
   style: PropTypes.object,
-  keyboardAvoiding: PropTypes.bool,
+  avoidKeyboard: PropTypes.bool,
 };
