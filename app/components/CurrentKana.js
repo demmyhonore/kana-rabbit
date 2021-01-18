@@ -4,11 +4,11 @@ import { StyleSheet, View, Text } from "react-native";
 
 import defaultStyles from "../config/styles";
 
-export default function KanaBig({ kana }) {
-  // Wrapped in view for fluid avoid keyboard transition bug
+export default function CurrentKana({ kana }) {
+  /* Text wrapped in view for smooth keyboard transition. */
   return (
     <View>
-      <Text style={[defaultStyles.kana, styles.kana]}>{kana.symbol}</Text>
+      <Text style={[defaultStyles.kana, styles.kana]}>{kana.letter}</Text>
     </View>
   );
 }
@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
   },
 });
 
-KanaBig.propTypes = {
+CurrentKana.propTypes = {
   kana: PropTypes.object,
 };
