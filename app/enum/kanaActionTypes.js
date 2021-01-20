@@ -1,5 +1,5 @@
 export default {
-  HANDLE_CORRECT_KANA: "handleCorrectKana",
-  HANDLE_WRONG_KANA: "handleWrongKana",
-  DRAW_NEXT_KANA: "drawNextKana",
+  PROMOTE_CURRENT: "promoteCurrent",
+  DEMOTE_CURRENT: "demoteCurrent",
+  SET_CURRENT: "setCurrent",
 };

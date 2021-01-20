@@ -8,7 +8,7 @@ export default function CurrentKana({ kana }) {
   /* Text wrapped in view for smooth keyboard transition. */
   return (
     <View>
-      <Text style={[defaultStyles.kana, styles.kana]}>{kana.letter}</Text>
+      <Text style={[defaultStyles.kana, styles.kana]}>{kana.symbol}</Text>
     </View>
   );
 }

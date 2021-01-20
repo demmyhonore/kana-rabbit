@@ -1,6 +1,7 @@
 export default {
+  IDLE: "idle",
   NEW: "new",
   CORRECT: "correct",
-  MEMORIZED: "memorized",
   WRONG: "wrong",
+  MEMORIZED: "memorized",
 };
