@@ -1,56 +1,22 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, StyleSheet } from "react-native";
 
-import allKana from "../data/kana";
 import * as kanaEnum from "../enum/kana";
-import {
-  addNewAndSetCurrentKana,
-  promoteCurrentKana,
-  demoteCurrentKana,
-  removeCurrentKana,
-  setCurrentKana,
-  getCurrentKana,
-  hasNewCategory,
-  hasWrongCategory,
-  hasCorrectCategory,
-  hasIdleCategory,
-} from "../utils/kana";
-
+import { getCurrentKana } from "../utils/kana";
+import { useKana } from "../context/kana";
 import Screen from "../components/screen";
 import CurrentKana from "../components/current-kana";
 import KanaInput from "../components/kana-input";
 
-const amountNew = 5;
-
-function reducer(kana, action) {
-  switch (action.type) {
-    case kanaEnum.actionTypes.PROMOTE_CURRENT:
-      return promoteCurrentKana(kana);
-    case kanaEnum.actionTypes.DEMOTE_CURRENT:
-      return demoteCurrentKana(kana);
-    case kanaEnum.actionTypes.SET_CURRENT:
-      if (hasNewCategory(kana))
-        return setCurrentKana(kana, kanaEnum.status.NEW);
-      if (hasWrongCategory(kana))
-        return setCurrentKana(kana, kanaEnum.status.WRONG);
-      if (hasCorrectCategory(kana))
-        return setCurrentKana(kana, kanaEnum.status.CORRECT);
-      if (hasIdleCategory(kana)) {
-        return addNewAndSetCurrentKana(kana, amountNew);
-      } else {
-        return removeCurrentKana(kana);
-      }
-    default:
-      throw new Error();
-  }
-}
-
 export default function KanaScreen() {
-  const [kana, dispatch] = useReducer(reducer, null, () =>
-    addNewAndSetCurrentKana(allKana, amountNew)
-  );
+  const [kana, dispatch] = useKana();
   const [answer, setAnswer] = useState("");
   const currentKana = getCurrentKana(kana);
+
+  const dispatchAndClearAnswer = ({ type }) => {
+    dispatch({ type });
+    setAnswer("");
+  };
 
   useEffect(() => {
     if (currentKana) {
@@ -59,13 +25,11 @@ export default function KanaScreen() {
 
       if (hasAnswer && isCorrect) {
         dispatch({ type: kanaEnum.actionTypes.PROMOTE_CURRENT });
-        dispatch({ type: kanaEnum.actionTypes.SET_CURRENT });
-        setAnswer("");
+        dispatchAndClearAnswer({ type: kanaEnum.actionTypes.SET_CURRENT });
       }
 
       if (hasAnswer && !isCorrect) {
-        dispatch({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
-        setAnswer("");
+        dispatchAndClearAnswer({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
       }
     }
   }, [answer]);
