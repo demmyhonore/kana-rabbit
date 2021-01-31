@@ -15,6 +15,7 @@ export default function KanaInput({ value, onChange, placeholder, maxLength }) {
       autoCorrect={false}
       autoCapitalize="none"
       textContentType="none"
+      testID="kana-input"
       autoFocus
     />
   );
