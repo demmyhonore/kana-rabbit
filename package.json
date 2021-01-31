@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
+    "@testing-library/jest-native": "^3.4.3",
     "@testing-library/react-native": "^7.1.0",
     "jest-expo": "^40.0.1",
     "react-test-renderer": "^16.11.0"
