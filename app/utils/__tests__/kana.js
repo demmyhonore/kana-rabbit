@@ -27,10 +27,10 @@ describe("addNewAndSetCurrentKana", () => {
     expect(result.filter(({ isCurrent }) => isCurrent).length).toEqual(1);
   });
 
-  it("returns 3 characters with status new", () => {
+  it("returns 2 characters with status new", () => {
     expect(
       result.filter(({ status }) => status === kanaEnum.status.NEW).length
-    ).toEqual(3);
+    ).toEqual(2);
   });
 });
 

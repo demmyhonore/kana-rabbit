@@ -4,6 +4,10 @@ const addNewAndSetCurrentKana = (kana, amountNew) => {
   let amountSet = 0;
 
   return [...kana].reduce((kana, character) => {
+    if (character.status === kanaEnum.status.NEW) {
+      character.status = kanaEnum.status.IDLE;
+    }
+
     if (character.isCurrent) {
       character.isCurrent = false;
     }
