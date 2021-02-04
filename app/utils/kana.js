@@ -4,6 +4,10 @@ const addNewAndSetCurrentKana = (kana, amountNew) => {
   let amountSet = 0;
 
   return [...kana].reduce((kana, character) => {
+    if (character.status === kanaEnum.status.NEW) {
+      character.status = kanaEnum.status.IDLE;
+    }
+
     if (character.isCurrent) {
       character.isCurrent = false;
     }
@@ -73,14 +77,8 @@ const setCurrentKana = (kana, status) => {
 
 const getCurrentKana = (kana) => kana.find((character) => character.isCurrent);
 
-const hasNewCategory = (kana) =>
-  kana.some((character) => character.status === kanaEnum.status.NEW);
-const hasWrongCategory = (kana) =>
-  kana.some((character) => character.status === kanaEnum.status.WRONG);
-const hasCorrectCategory = (kana) =>
-  kana.some((character) => character.status === kanaEnum.status.CORRECT);
-const hasIdleCategory = (kana) =>
-  kana.some((character) => character.status === kanaEnum.status.IDLE);
+const hasStatus = (kana, status) =>
+  kana.some((character) => character.status === status);
 
 export {
   addNewAndSetCurrentKana,
@@ -89,8 +87,5 @@ export {
   removeCurrentKana,
   setCurrentKana,
   getCurrentKana,
-  hasNewCategory,
-  hasWrongCategory,
-  hasCorrectCategory,
-  hasIdleCategory,
+  hasStatus,
 };

@@ -25,7 +25,7 @@ export default function KanaScreen() {
   useEffect(() => {
     const hasAnswer = answer.length === currentKana?.sound?.length;
     const isCorrect = answer === currentKana?.sound;
-    
+
     if (hasAnswer) {
       if (isCorrect) {
         setAnswerStatus(answerEnum.status.CORRECT);

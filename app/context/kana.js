@@ -8,10 +8,7 @@ import {
   demoteCurrentKana,
   removeCurrentKana,
   setCurrentKana,
-  hasNewCategory,
-  hasWrongCategory,
-  hasCorrectCategory,
-  hasIdleCategory,
+  hasStatus,
 } from "../utils/kana";
 
 const amountNewKana = 5;
@@ -26,13 +23,13 @@ function reducer(kana, action) {
     case kanaEnum.actionTypes.DEMOTE_CURRENT:
       return demoteCurrentKana(kana);
     case kanaEnum.actionTypes.SET_CURRENT:
-      if (hasNewCategory(kana))
+      if (hasStatus(kana, kanaEnum.status.NEW))
         return setCurrentKana(kana, kanaEnum.status.NEW);
-      if (hasWrongCategory(kana))
+      if (hasStatus(kana, kanaEnum.status.WRONG))
         return setCurrentKana(kana, kanaEnum.status.WRONG);
-      if (hasCorrectCategory(kana))
+      if (hasStatus(kana, kanaEnum.status.CORRECT))
         return setCurrentKana(kana, kanaEnum.status.CORRECT);
-      if (hasIdleCategory(kana)) {
+      if (hasStatus(kana, kanaEnum.status.IDLE)) {
         return addNewAndSetCurrentKana(kana, amountNewKana);
       } else {
         return removeCurrentKana(kana);
