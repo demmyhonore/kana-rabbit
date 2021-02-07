@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 
-import allKana from "../data/kana";
+import allKana from "../assets/kana";
 import * as kanaEnum from "../enum/kana";
 import {
   addNewAndSetCurrentKana,
