@@ -2,10 +2,15 @@ import React from "react";
 
 import { render } from "@testing-library/react-native";
 
+import { SettingsProvider } from "./app/context/settings";
 import { KanaProvider } from "./app/context/kana";
 
 const AllTheProviders = ({ children }) => {
-  return <KanaProvider>{children}</KanaProvider>;
+  return (
+    <SettingsProvider>
+      <KanaProvider>{children}</KanaProvider>
+    </SettingsProvider>
+  );
 };
 
 const customRender = (ui, options) =>

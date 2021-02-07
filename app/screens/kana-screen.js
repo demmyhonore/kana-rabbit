@@ -4,6 +4,7 @@ import { View, Text, Button, StyleSheet } from "react-native";
 import * as kanaEnum from "../enum/kana";
 import * as answerEnum from "../enum/answer";
 import { getCurrentKana } from "../utils/kana";
+import { useSettings } from "../context/settings";
 import { useKana } from "../context/kana";
 import { useAnswer } from "../hooks/use-answer";
 import Screen from "../components/screen";
@@ -11,13 +12,14 @@ import CurrentKana from "../components/current-kana";
 import KanaInput from "../components/kana-input";
 
 export default function KanaScreen() {
+  const [settings] = useSettings();
   const [kana, dispatch] = useKana();
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
   const [answerStatus, setAnswerStatus] = useState(answerEnum.status.PENDING);
   const currentKana = getCurrentKana(kana);
 
-  const dispatchAndResetAnswer = ({ type }) => {
-    dispatch({ type });
+  const dispatchAndResetAnswer = (action) => {
+    dispatch(action);
     clearAnswer();
     setAnswerStatus(answerEnum.status.PENDING);
   };
@@ -45,12 +47,18 @@ export default function KanaScreen() {
   useEffect(() => {
     if (answerStatus === answerEnum.status.CORRECT) {
       dispatch({ type: kanaEnum.actionTypes.PROMOTE_CURRENT });
-      dispatchAndResetAnswer({ type: kanaEnum.actionTypes.SET_CURRENT });
+      dispatchAndResetAnswer({
+        type: kanaEnum.actionTypes.SET_CURRENT,
+        payload: { amountNewKana: settings.amountNewKana },
+      });
     }
 
     if (answerStatus === answerEnum.status.WRONG) {
       dispatch({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
-      dispatchAndResetAnswer({ type: kanaEnum.actionTypes.SET_CURRENT });
+      dispatchAndResetAnswer({
+        type: kanaEnum.actionTypes.SET_CURRENT,
+        payload: { amountNewKana: settings.amountNewKana },
+      });
     }
   }, [answerStatus]);
 

@@ -25,6 +25,17 @@ const addNewAndSetCurrentKana = (kana, amountNew) => {
   }, []);
 };
 
+const shuffleKana = (kana) => {
+  const copiedKana = [...kana];
+
+  for (let i = copiedKana.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [copiedKana[i], copiedKana[j]] = [copiedKana[j], copiedKana[i]];
+  }
+
+  return copiedKana;
+};
+
 const promoteCurrentKana = (kana) => {
   return [...kana].reduce((kana, character) => {
     if (character.isCurrent) {
@@ -77,15 +88,16 @@ const setCurrentKana = (kana, status) => {
 
 const getCurrentKana = (kana) => kana.find((character) => character.isCurrent);
 
-const hasStatus = (kana, status) =>
+const kanaHasStatus = (kana, status) =>
   kana.some((character) => character.status === status);
 
 export {
   addNewAndSetCurrentKana,
+  shuffleKana,
   promoteCurrentKana,
   demoteCurrentKana,
   removeCurrentKana,
   setCurrentKana,
   getCurrentKana,
-  hasStatus,
+  kanaHasStatus,
 };

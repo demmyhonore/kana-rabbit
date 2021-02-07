@@ -5,7 +5,7 @@ import {
   removeCurrentKana,
   setCurrentKana,
   getCurrentKana,
-  hasStatus,
+  kanaHasStatus,
 } from "../kana";
 import * as kanaEnum from "../../enum/kana";
 
@@ -92,10 +92,10 @@ describe("getCurrentKana", () => {
   });
 });
 
-describe("hasStatus", () => {
+describe("kanaHasStatus", () => {
   it("confirms if some character has the specified status", () => {
     expect(
-      hasStatus([{ ...idleCharacter }], kanaEnum.status.IDLE)
+      kanaHasStatus([{ ...idleCharacter }], kanaEnum.status.IDLE)
     ).toBeTruthy();
   });
 });
