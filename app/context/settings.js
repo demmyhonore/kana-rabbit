@@ -19,6 +19,7 @@ function reducer(settings, action) {
 const initialSettings = {
   selectedKana: [settingsEnum.kanaType.HIRAGANA],
   learningMode: settingsEnum.learningMode.NEWBIE_WAY,
+  amountNewKana: 5,
 };
 
 function SettingsProvider(props) {

@@ -1,17 +1,18 @@
 import React, { createContext, useReducer } from "react";
 
 import allKana from "../assets/kana";
+import * as settingsEnum from "../enum/settings";
 import * as kanaEnum from "../enum/kana";
 import {
   addNewAndSetCurrentKana,
+  shuffleKana,
   promoteCurrentKana,
   demoteCurrentKana,
   removeCurrentKana,
   setCurrentKana,
-  hasStatus,
+  kanaHasStatus,
 } from "../utils/kana";
-
-const amountNewKana = 5;
+import { useSettings } from "./settings";
 
 const KanaContext = createContext();
 KanaContext.displayName = "KanaContext";
@@ -23,14 +24,14 @@ function reducer(kana, action) {
     case kanaEnum.actionTypes.DEMOTE_CURRENT:
       return demoteCurrentKana(kana);
     case kanaEnum.actionTypes.SET_CURRENT:
-      if (hasStatus(kana, kanaEnum.status.NEW))
+      if (kanaHasStatus(kana, kanaEnum.status.NEW))
         return setCurrentKana(kana, kanaEnum.status.NEW);
-      if (hasStatus(kana, kanaEnum.status.WRONG))
+      if (kanaHasStatus(kana, kanaEnum.status.WRONG))
         return setCurrentKana(kana, kanaEnum.status.WRONG);
-      if (hasStatus(kana, kanaEnum.status.CORRECT))
+      if (kanaHasStatus(kana, kanaEnum.status.CORRECT))
         return setCurrentKana(kana, kanaEnum.status.CORRECT);
-      if (hasStatus(kana, kanaEnum.status.IDLE)) {
-        return addNewAndSetCurrentKana(kana, amountNewKana);
+      if (kanaHasStatus(kana, kanaEnum.status.IDLE)) {
+        return addNewAndSetCurrentKana(kana, action.payload.amountNewKana);
       } else {
         return removeCurrentKana(kana);
       }
@@ -40,9 +41,15 @@ function reducer(kana, action) {
 }
 
 function KanaProvider(props) {
-  const [kana, dispatch] = useReducer(reducer, null, () =>
-    addNewAndSetCurrentKana(allKana, amountNewKana)
-  );
+  const [settings] = useSettings();
+  const [kana, dispatch] = useReducer(reducer, null, () => {
+    const initialKana =
+      settings.learningMode === settingsEnum.learningMode.NEWBIE_WAY
+        ? allKana
+        : shuffleKana(allKana);
+
+    return addNewAndSetCurrentKana(initialKana, settings.amountNewKana);
+  });
 
   const value = [kana, dispatch];
 
