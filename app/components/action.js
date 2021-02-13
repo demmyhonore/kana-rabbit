@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
     height: 55,
     alignItems: "center",
     justifyContent: "center",
+    paddingLeft: defaultStyles.spacing.s3,
+    paddingRight: defaultStyles.spacing.s3,
   },
   text: {
     fontFamily: "LexendMega_400Regular",

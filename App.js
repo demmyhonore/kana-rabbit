@@ -6,7 +6,8 @@ import { KosugiMaru_400Regular } from "@expo-google-fonts/kosugi-maru";
 
 import { SettingsProvider } from "./app/context/settings";
 import { KanaProvider } from "./app/context/kana";
-import ChooseKanaOrderScreen from "./app/screens/choose-kana-order-screen";
+
+import GuessKanaScreen from "./app/screens/guess-kana-screen";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,7 +21,7 @@ export default function App() {
   return (
     <SettingsProvider>
       <KanaProvider>
-        <ChooseKanaOrderScreen />
+        <GuessKanaScreen />
       </KanaProvider>
     </SettingsProvider>
   );

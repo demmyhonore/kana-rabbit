@@ -20,6 +20,7 @@ const initialSettings = {
   kanaTypes: [settingsEnum.kanaType.HIRAGANA],
   kanaOrder: settingsEnum.kanaOrder.NEWBIE,
   kanaNewCount: 5,
+  showCorrectAnswerDuration: 1000,
 };
 
 function SettingsProvider(props) {

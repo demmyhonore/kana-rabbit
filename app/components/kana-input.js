@@ -4,14 +4,22 @@ import { StyleSheet, TextInput } from "react-native";
 
 import defaultStyles from "../config/styles";
 
-export default function KanaInput({ value, onChange, placeholder, maxLength }) {
+export default function KanaInput({
+  style,
+  placeholder,
+  answer,
+  onAnswerChange,
+  answerLength,
+  caretHidden,
+}) {
   return (
     <TextInput
-      style={styles.input}
-      onChangeText={onChange}
-      value={value}
+      style={[styles.root, style]}
       placeholder={placeholder}
-      maxLength={maxLength}
+      value={answer}
+      onChangeText={onAnswerChange}
+      maxLength={answerLength}
+      caretHidden={caretHidden}
       autoCorrect={false}
       autoCapitalize="none"
       textContentType="none"
@@ -22,15 +30,21 @@ export default function KanaInput({ value, onChange, placeholder, maxLength }) {
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderBottomWidth: 1,
-    borderBottomColor: defaultStyles.colors.black,
+  root: {
+    backgroundColor: defaultStyles.colors.white,
+    fontFamily: "LexendMega_400Regular",
+    color: defaultStyles.colors.blue,
+    fontSize: 24,
+    textAlign: "center",
+    width: 80,
+    height: 55,
   },
 });
 
 KanaInput.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func,
   placeholder: PropTypes.string,
-  maxLength: PropTypes.number,
+  answer: PropTypes.string,
+  onAnswerChange: PropTypes.func,
+  answerLength: PropTypes.number,
+  caretHidden: PropTypes.bool,
 };

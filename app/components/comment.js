@@ -4,8 +4,13 @@ import { Text, StyleSheet } from "react-native";
 
 import defaultStyles from "../config/styles";
 
-export default function Comment({ style, text }) {
-  return <Text style={[styles.root, style]}>{text}</Text>;
+export default function Comment({ containerStyle, textStyle, text, answer }) {
+  return (
+    <Text style={containerStyle}>
+      <Text style={[styles.root, textStyle]}>{text}</Text>
+      {answer ? <Text style={[styles.answer, textStyle]}>{answer}</Text> : null}
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -16,8 +21,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: defaultStyles.colors.white,
   },
+  answer: {
+    fontFamily: "Lemon_400Regular",
+    fontSize: 65,
+    lineHeight: 75,
+    textAlign: "center",
+    color: defaultStyles.colors.paleLimeGreen,
+    textDecorationLine: "underline",
+  },
 });
 
 Comment.propTypes = {
   text: PropTypes.string,
+  answer: PropTypes.string,
 };

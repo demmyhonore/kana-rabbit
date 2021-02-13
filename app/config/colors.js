@@ -1,6 +1,7 @@
 export default {
   black: "#000",
   blue: "#636E72",
+  carnationPink: "#FFAFCC",
   chiffon: "#FDFFB6",
   grayishViolet: "#CDB4DB",
   green: "#7bf1a8",

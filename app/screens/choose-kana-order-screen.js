@@ -21,7 +21,7 @@ export default function ChooseKanaOrderScreen() {
 
   return (
     <Screen style={styles.screen}>
-      <Comment style={styles.comment} text="Pfff.. what order?" />
+      <Comment containerStyle={styles.comment} text="Pfff.. what order?" />
       <View style={styles.options}>
         {renderOption("Newbie", settingsEnum.kanaOrder.NEWBIE)}
         {renderOption("Random", settingsEnum.kanaOrder.RANDOM)}

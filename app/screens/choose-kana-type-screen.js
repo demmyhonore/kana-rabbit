@@ -23,7 +23,7 @@ export default function ChooseKanaTypeScreen() {
 
   return (
     <Screen style={styles.screen}>
-      <Comment style={styles.comment} text="Which kana then..?" />
+      <Comment containerStyle={styles.comment} text="Which kana then..?" />
       <View style={styles.options}>
         {renderOption("Hiragana", settingsEnum.kanaType.HIRAGANA, "あ")}
         {renderOption("Katakana", settingsEnum.kanaType.KATAKANA, "ア")}
