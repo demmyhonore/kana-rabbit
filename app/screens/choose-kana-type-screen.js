@@ -11,7 +11,7 @@ import OptionText from "../components/option-text";
 import KanaText from "../components/kana-text";
 import Action from "../components/action";
 
-export default function ChooseKanaScreen() {
+export default function ChooseKanaTypeScreen() {
   const [selectedId, setSelectedId] = useState(null);
 
   const renderOption = (text, value, kana) => (

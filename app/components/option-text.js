@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontFamily: "LexendMega_400Regular",
     color: defaultStyles.colors.blue,
     fontSize: 24,
+    textTransform: "lowercase",
   },
 });
 
