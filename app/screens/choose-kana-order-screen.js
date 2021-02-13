@@ -22,7 +22,7 @@ export default function ChooseKanaOrderScreen() {
   return (
     <Screen style={styles.screen}>
       <Comment containerStyle={styles.comment} text="Pfff.. what order?" />
-      <View style={styles.options}>
+      <View>
         {renderOption("Newbie", settingsEnum.kanaOrder.NEWBIE)}
         {renderOption("Random", settingsEnum.kanaOrder.RANDOM)}
       </View>
@@ -35,14 +35,11 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
+    justifyContent: "space-around",
   },
   comment: {
     marginTop: defaultStyles.spacing.s3,
     marginBottom: defaultStyles.spacing.s0,
-  },
-  options: {
-    marginTop: "auto",
-    marginBottom: "auto",
   },
   optionText: {
     marginRight: defaultStyles.spacing.s0,

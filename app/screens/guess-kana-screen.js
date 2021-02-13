@@ -74,7 +74,6 @@ export default function GuessKanaScreen() {
     return (
       <Screen style={styles.screen}>
         <Comment
-          containerStyle={styles.commentAtCenter}
           textStyle={styles.commentText}
           text="GOOD job! You finished all the kana!"
         />
@@ -88,7 +87,7 @@ export default function GuessKanaScreen() {
         <Comment
           containerStyle={styles.commentAtTop}
           textStyle={styles.commentText}
-          text="You.. are good!"
+          text="Very good!"
         />
         <KanaText style={styles.currentKana} text={currentKana.symbol} />
         <KanaInput
@@ -108,7 +107,7 @@ export default function GuessKanaScreen() {
         <Comment
           containerStyle={styles.commentAtTop}
           textStyle={styles.commentText}
-          text="Shh.. try again.."
+          text="Try again.."
         />
         <KanaText style={styles.currentKana} text={currentKana.symbol} />
         <KanaInput
@@ -126,7 +125,6 @@ export default function GuessKanaScreen() {
     return (
       <Screen style={styles.screen}>
         <Comment
-          containerStyle={styles.commentAtCenter}
           textStyle={styles.commentText}
           text="Oh no.. correct sound is: "
           answer={currentKana.sound}
@@ -162,37 +160,30 @@ export default function GuessKanaScreen() {
 const styles = StyleSheet.create({
   screen: {
     alignItems: "center",
+    justifyContent: "space-around",
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
   },
   commentAtTop: {
-    marginTop: defaultStyles.spacing.s2,
+    marginTop: defaultStyles.spacing.s1,
     marginBottom: defaultStyles.spacing.s0,
-    fontSize: 45,
-    lineHeight: 55,
   },
   commentText: {
-    fontSize: 45,
-    lineHeight: 55,
+    fontSize: 40,
+    lineHeight: 50,
   },
   currentKana: {
-    marginTop: "auto",
-    marginBottom: "auto",
     fontSize: 200,
     color: defaultStyles.colors.white,
   },
   kanaInput: {
-    marginBottom: defaultStyles.spacing.s3,
+    marginBottom: defaultStyles.spacing.s1,
   },
   inputCorrect: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,
   },
   inputWrong: {
     backgroundColor: defaultStyles.colors.carnationPink,
-  },
-  commentAtCenter: {
-    marginTop: "auto",
-    marginBottom: "auto",
   },
   action: {
     marginBottom: defaultStyles.spacing.s3,

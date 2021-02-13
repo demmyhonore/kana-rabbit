@@ -24,7 +24,7 @@ export default function ChooseKanaTypeScreen() {
   return (
     <Screen style={styles.screen}>
       <Comment containerStyle={styles.comment} text="Which kana then..?" />
-      <View style={styles.options}>
+      <View>
         {renderOption("Hiragana", settingsEnum.kanaType.HIRAGANA, "あ")}
         {renderOption("Katakana", settingsEnum.kanaType.KATAKANA, "ア")}
         {renderOption("With marks", settingsEnum.kanaType.WITH_MARKS, "が")}
@@ -39,14 +39,11 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
+    justifyContent: "space-around",
   },
   comment: {
     marginTop: defaultStyles.spacing.s3,
     marginBottom: defaultStyles.spacing.s0,
-  },
-  options: {
-    marginTop: "auto",
-    marginBottom: "auto",
   },
   optionText: {
     marginRight: defaultStyles.spacing.s0,
