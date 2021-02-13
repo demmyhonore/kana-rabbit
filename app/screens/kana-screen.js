@@ -49,7 +49,7 @@ export default function KanaScreen() {
       dispatch({ type: kanaEnum.actionTypes.PROMOTE_CURRENT });
       dispatchAndResetAnswer({
         type: kanaEnum.actionTypes.SET_CURRENT,
-        payload: { amountNewKana: settings.amountNewKana },
+        payload: { kanaNewCount: settings.kanaNewCount },
       });
     }
 
@@ -57,7 +57,7 @@ export default function KanaScreen() {
       dispatch({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
       dispatchAndResetAnswer({
         type: kanaEnum.actionTypes.SET_CURRENT,
-        payload: { amountNewKana: settings.amountNewKana },
+        payload: { kanaNewCount: settings.kanaNewCount },
       });
     }
   }, [answerStatus]);

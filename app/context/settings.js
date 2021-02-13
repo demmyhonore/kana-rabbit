@@ -7,19 +7,19 @@ SettingsContext.displayName = "SettingsContext";
 
 function reducer(settings, action) {
   switch (action.type) {
-    case settingsEnum.actionTypes.SELECT_KANA:
-      return { ...settings, selectedKana: action.payload };
-    case settingsEnum.actionTypes.SELECT_LEARNING_MODE:
-      return { ...settings, learningMode: action.payload };
+    case settingsEnum.actionTypes.SELECT_KANA_TYPE:
+      return { ...settings, kanaTypes: action.payload };
+    case settingsEnum.actionTypes.SELECT_KANA_ORDER:
+      return { ...settings, kanaOrder: action.payload };
     default:
       throw new Error();
   }
 }
 
 const initialSettings = {
-  selectedKana: [settingsEnum.kanaType.HIRAGANA],
-  learningMode: settingsEnum.learningMode.NEWBIE_WAY,
-  amountNewKana: 5,
+  kanaTypes: [settingsEnum.kanaType.HIRAGANA],
+  kanaOrder: settingsEnum.kanaOrder.NEWBIE,
+  kanaNewCount: 5,
 };
 
 function SettingsProvider(props) {

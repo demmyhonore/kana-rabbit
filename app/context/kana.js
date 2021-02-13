@@ -31,7 +31,7 @@ function reducer(kana, action) {
       if (kanaHasStatus(kana, kanaEnum.status.CORRECT))
         return setCurrentKana(kana, kanaEnum.status.CORRECT);
       if (kanaHasStatus(kana, kanaEnum.status.IDLE)) {
-        return addNewAndSetCurrentKana(kana, action.payload.amountNewKana);
+        return addNewAndSetCurrentKana(kana, action.payload.kanaNewCount);
       } else {
         return removeCurrentKana(kana);
       }
@@ -44,11 +44,11 @@ function KanaProvider(props) {
   const [settings] = useSettings();
   const [kana, dispatch] = useReducer(reducer, null, () => {
     const initialKana =
-      settings.learningMode === settingsEnum.learningMode.NEWBIE_WAY
+      settings.kanaOrder === settingsEnum.kanaOrder.NEWBIE
         ? allKana
         : shuffleKana(allKana);
 
-    return addNewAndSetCurrentKana(initialKana, settings.amountNewKana);
+    return addNewAndSetCurrentKana(initialKana, settings.kanaNewCount);
   });
 
   const value = [kana, dispatch];
