@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 
 import * as kanaEnum from "../enum/kana";
 import * as answerEnum from "../enum/answer";
@@ -85,11 +85,13 @@ export default function GuessKanaScreen() {
   if (answerStatus === answerEnum.status.SHOW_CORRECT_ANSWER) {
     return (
       <Screen style={styles.screen} avoidKeyboard>
-        <Comment
-          containerStyle={styles.commentAtTop}
-          textStyle={styles.commentText}
-          text="Very good!"
-        />
+        <View style={styles.top}>
+          <Image
+            style={styles.character}
+            source={require("../assets/dummyCharacter.png")}
+          />
+          <Comment textStyle={styles.commentText} text="Very good!" />
+        </View>
         <View style={styles.center}>
           <KanaText style={styles.currentKana} text={currentKana.symbol} />
           <IconButton
@@ -112,11 +114,13 @@ export default function GuessKanaScreen() {
   if (answerStatus === answerEnum.status.FIRST_ATTEMPT) {
     return (
       <Screen style={styles.screen} avoidKeyboard>
-        <Comment
-          containerStyle={styles.commentAtTop}
-          textStyle={styles.commentText}
-          text="Try again.."
-        />
+        <View style={styles.top}>
+          <Image
+            style={styles.character}
+            source={require("../assets/dummyCharacter.png")}
+          />
+          <Comment textStyle={styles.commentText} text="Try again.." />
+        </View>
         <View style={styles.center}>
           <KanaText style={styles.currentKana} text={currentKana.symbol} />
           <IconButton
@@ -155,11 +159,14 @@ export default function GuessKanaScreen() {
 
   return (
     <Screen style={styles.screen} avoidKeyboard>
-      <Comment
-        containerStyle={styles.commentAtTop}
-        textStyle={styles.commentText}
-        text="Yes... ?"
-      />
+      <View style={styles.top}>
+        <Image
+          style={styles.character}
+          source={require("../assets/dummyCharacter.png")}
+        />
+        {/* <Comment textStyle={styles.commentText} text="Yes... ?" /> */}
+        <Comment textStyle={styles.commentText} text="Yes yes yes yes" />
+      </View>
       <View style={styles.center}>
         <KanaText style={styles.currentKana} text={currentKana.symbol} />
         <IconButton
@@ -185,13 +192,25 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
   },
-  commentAtTop: {
+  top: {
     marginTop: defaultStyles.spacing.s1,
     marginBottom: defaultStyles.spacing.s0,
+    minHeight: 70,
+    alignItems: "flex-start",
+    justifyContent: "center",
+    paddingLeft: 75,
+  },
+  character: {
+    position: "absolute",
+    left: 0,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    overflow: "hidden",
   },
   commentText: {
-    fontSize: 40,
-    lineHeight: 50,
+    fontSize: 30,
+    lineHeight: 35,
   },
   center: {
     width: "100%",
