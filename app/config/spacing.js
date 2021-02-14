@@ -2,6 +2,8 @@ const ratio = 1.5;
 const spacing = 8;
 
 export default {
+  "s-2": spacing / Math.pow(ratio, 2),
+  "s-1": spacing / ratio,
   s0: spacing,
   s1: spacing * ratio,
   s2: spacing * Math.pow(ratio, 2),

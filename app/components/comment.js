@@ -6,8 +6,8 @@ import defaultStyles from "../config/styles";
 
 export default function Comment({ containerStyle, textStyle, text, answer }) {
   return (
-    <Text style={containerStyle}>
-      <Text style={[styles.root, textStyle]}>{text}</Text>
+    <Text style={[styles.root, containerStyle]}>
+      <Text style={textStyle}>{text}</Text>
       {answer ? <Text style={[styles.answer, textStyle]}>{answer}</Text> : null}
     </Text>
   );
@@ -22,10 +22,6 @@ const styles = StyleSheet.create({
     color: defaultStyles.colors.white,
   },
   answer: {
-    fontFamily: "Lemon_400Regular",
-    fontSize: 65,
-    lineHeight: 75,
-    textAlign: "center",
     color: defaultStyles.colors.paleLimeGreen,
     textDecorationLine: "underline",
   },

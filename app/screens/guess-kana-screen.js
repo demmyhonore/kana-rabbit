@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import * as kanaEnum from "../enum/kana";
 import * as answerEnum from "../enum/answer";
@@ -15,6 +15,7 @@ import Comment from "../components/comment";
 import KanaText from "../components/kana-text";
 import KanaInput from "../components/kana-input";
 import Action from "../components/action";
+import IconButton from "../components/icon-button";
 
 export default function GuessKanaScreen() {
   const [settings] = useSettings();
@@ -89,9 +90,16 @@ export default function GuessKanaScreen() {
           textStyle={styles.commentText}
           text="Very good!"
         />
-        <KanaText style={styles.currentKana} text={currentKana.symbol} />
+        <View style={styles.center}>
+          <KanaText style={styles.currentKana} text={currentKana.symbol} />
+          <IconButton
+            style={styles.restartIcon}
+            name="restart"
+            onPress={() => ""}
+          />
+        </View>
         <KanaInput
-          style={[styles.kanaInput, styles.inputCorrect]}
+          style={styles.inputCorrect}
           placeholder="???"
           answer={answer}
           answerLength={currentKana.sound.length}
@@ -109,9 +117,16 @@ export default function GuessKanaScreen() {
           textStyle={styles.commentText}
           text="Try again.."
         />
-        <KanaText style={styles.currentKana} text={currentKana.symbol} />
+        <View style={styles.center}>
+          <KanaText style={styles.currentKana} text={currentKana.symbol} />
+          <IconButton
+            style={styles.restartIcon}
+            name="restart"
+            onPress={() => ""}
+          />
+        </View>
         <KanaInput
-          style={[styles.kanaInput, styles.inputWrong]}
+          style={styles.inputWrong}
           placeholder="???"
           answer={answer}
           onAnswerChange={onAnswerChange}
@@ -145,9 +160,15 @@ export default function GuessKanaScreen() {
         textStyle={styles.commentText}
         text="Yes... ?"
       />
-      <KanaText style={styles.currentKana} text={currentKana.symbol} />
+      <View style={styles.center}>
+        <KanaText style={styles.currentKana} text={currentKana.symbol} />
+        <IconButton
+          style={styles.restartIcon}
+          name="restart"
+          onPress={() => ""}
+        />
+      </View>
       <KanaInput
-        style={styles.kanaInput}
         placeholder="???"
         answer={answer}
         onAnswerChange={onAnswerChange}
@@ -172,12 +193,14 @@ const styles = StyleSheet.create({
     fontSize: 40,
     lineHeight: 50,
   },
-  currentKana: {
-    fontSize: 200,
-    color: defaultStyles.colors.white,
+  center: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  kanaInput: {
-    marginBottom: defaultStyles.spacing.s1,
+  currentKana: {
+    fontSize: 180,
+    color: defaultStyles.colors.white,
   },
   inputCorrect: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,
@@ -187,5 +210,9 @@ const styles = StyleSheet.create({
   },
   action: {
     marginBottom: defaultStyles.spacing.s3,
+  },
+  restartIcon: {
+    position: "absolute",
+    right: 0,
   },
 });
