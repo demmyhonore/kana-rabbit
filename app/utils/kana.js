@@ -1,4 +1,35 @@
 import * as kanaEnum from "../enum/kana";
+import * as settingsEnum from "../enum/settings";
+
+const getSelectedKana = (kana, settings) => {
+  return [...kana].reduce((kana, character) => {
+    if (
+      settings.kanaTypes[settingsEnum.kanaType.HIRAGANA] &&
+      character.type === settingsEnum.kanaType.HIRAGANA
+    ) {
+      kana.push(character);
+    }
+    if (
+      settings.kanaTypes[settingsEnum.kanaType.KATAKANA] &&
+      character.type === settingsEnum.kanaType.KATAKANA
+    ) {
+      kana.push(character);
+    }
+    if (
+      settings.kanaTypes[settingsEnum.kanaType.WITH_MARKS] &&
+      character.type === settingsEnum.kanaType.WITH_MARKS
+    ) {
+      kana.push(character);
+    }
+    if (
+      settings.kanaTypes[settingsEnum.kanaType.COMBINED] &&
+      character.type === settingsEnum.kanaType.COMBINED
+    ) {
+      kana.push(character);
+    }
+    return kana;
+  }, []);
+};
 
 const addNewAndSetCurrentKana = (kana, amountNew) => {
   let amountSet = 0;
@@ -92,6 +123,7 @@ const kanaHasStatus = (kana, status) =>
   kana.some((character) => character.status === status);
 
 export {
+  getSelectedKana,
   addNewAndSetCurrentKana,
   shuffleKana,
   promoteCurrentKana,
