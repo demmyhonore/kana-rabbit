@@ -1,6 +1,6 @@
 const actionTypes = {
-  SELECT_KANA_TYPE: "selectKanaType",
-  SELECT_KANA_ORDER: "selectKanaOrder",
+  SET_KANA_TYPES: "setKanaTypes",
+  SET_KANA_ORDER: "setKanaOrder",
 };
 
 const kanaType = {

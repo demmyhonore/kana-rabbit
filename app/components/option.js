@@ -1,12 +1,13 @@
 import React from "react";
-import { View, Text, TouchableHighlight, StyleSheet } from "react-native";
+import PropTypes from "prop-types";
+import { View, TouchableHighlight, StyleSheet } from "react-native";
 
 import defaultStyles from "../config/styles";
 
-export default function Option({ onPress, children }) {
+export default function Option({ onPress, children, isSelected }) {
   return (
     <TouchableHighlight
-      style={styles.root}
+      style={[styles.root, isSelected ? styles.selected : null]}
       onPress={onPress}
       underlayColor={defaultStyles.colors.chiffon}
     >
@@ -23,9 +24,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: defaultStyles.spacing.s0,
   },
+  selected: {
+    backgroundColor: defaultStyles.colors.chiffon,
+  },
   container: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "baseline",
   },
 });
+
+Option.propTypes = {
+  onPress: PropTypes.func,
+  isSelected: PropTypes.bool,
+};

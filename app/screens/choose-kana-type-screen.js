@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native";
 
 import * as settingsEnum from "../enum/settings";
 import defaultStyles from "../config/styles";
+import { useSettings } from "../context/settings";
 
 import Screen from "../components/screen";
 import Comment from "../components/comment";
@@ -12,10 +13,25 @@ import KanaText from "../components/kana-text";
 import Action from "../components/action";
 
 export default function ChooseKanaTypeScreen() {
-  const [selectedId, setSelectedId] = useState(null);
+  const [, dispatch] = useSettings();
+
+  const [selected, setSelected] = useState({
+    [settingsEnum.kanaType.HIRAGANA]: true,
+    [settingsEnum.kanaType.KATAKANA]: false,
+    [settingsEnum.kanaType.WITH_MARKS]: false,
+    [settingsEnum.kanaType.COMBINED]: false,
+  });
+
+  const handleOptionPress = (value) =>
+    selected[value]
+      ? setSelected((prevSelected) => ({ ...prevSelected, [value]: false }))
+      : setSelected((prevSelected) => ({ ...prevSelected, [value]: true }));
 
   const renderOption = (text, value, kana) => (
-    <Option onPress={() => setSelectedId(value)}>
+    <Option
+      onPress={() => handleOptionPress(value)}
+      isSelected={selected[value]}
+    >
       <OptionText style={styles.optionText} text={text} />
       <KanaText text={kana} />
     </Option>
@@ -30,7 +46,16 @@ export default function ChooseKanaTypeScreen() {
         {renderOption("With marks", settingsEnum.kanaType.WITH_MARKS, "が")}
         {renderOption("Combined", settingsEnum.kanaType.COMBINED, "きゃ")}
       </View>
-      <Action style={styles.action} onPress={() => ""} text="Select" />
+      <Action
+        style={styles.action}
+        onPress={() =>
+          dispatch({
+            type: settingsEnum.actionTypes.SET_KANA_TYPES,
+            payload: selected,
+          })
+        }
+        text="Select"
+      />
     </Screen>
   );
 }

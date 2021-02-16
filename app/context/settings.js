@@ -7,9 +7,9 @@ SettingsContext.displayName = "SettingsContext";
 
 function reducer(settings, action) {
   switch (action.type) {
-    case settingsEnum.actionTypes.SELECT_KANA_TYPE:
+    case settingsEnum.actionTypes.SET_KANA_TYPES:
       return { ...settings, kanaTypes: action.payload };
-    case settingsEnum.actionTypes.SELECT_KANA_ORDER:
+    case settingsEnum.actionTypes.SET_KANA_ORDER:
       return { ...settings, kanaOrder: action.payload };
     default:
       throw new Error();
@@ -17,7 +17,12 @@ function reducer(settings, action) {
 }
 
 const initialSettings = {
-  kanaTypes: [settingsEnum.kanaType.HIRAGANA],
+  kanaTypes: {
+    [settingsEnum.kanaType.HIRAGANA]: true,
+    [settingsEnum.kanaType.KATAKANA]: false,
+    [settingsEnum.kanaType.WITH_MARKS]: false,
+    [settingsEnum.kanaType.COMBINED]: false,
+  },
   kanaOrder: settingsEnum.kanaOrder.NEWBIE,
   kanaNewCount: 5,
   showCorrectAnswerDuration: 1000,
