@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import * as settingsEnum from "../enum/settings";
 import defaultStyles from "../config/styles";
 import { useSettings } from "../context/settings";
+import { useDetectTablet } from "../hooks/use-detect-tablet";
 
 import Screen from "../components/screen";
 import Comment from "../components/comment";
@@ -13,6 +14,7 @@ import KanaText from "../components/kana-text";
 import Action from "../components/action";
 
 export default function ChooseKanaTypeScreen() {
+  const isTablet = useDetectTablet();
   const [, dispatch] = useSettings();
 
   const [selected, setSelected] = useState({
@@ -39,23 +41,25 @@ export default function ChooseKanaTypeScreen() {
 
   return (
     <Screen style={styles.screen}>
-      <Comment containerStyle={styles.comment} text="Which kana then..?" />
-      <View>
-        {renderOption("Hiragana", settingsEnum.kanaType.HIRAGANA, "あ")}
-        {renderOption("Katakana", settingsEnum.kanaType.KATAKANA, "ア")}
-        {renderOption("With marks", settingsEnum.kanaType.WITH_MARKS, "が")}
-        {renderOption("Combined", settingsEnum.kanaType.COMBINED, "きゃ")}
+      <View style={[isTablet ? styles.tablet : styles.normal]}>
+        <Comment containerStyle={styles.comment} text="Which kana then..?" />
+        <View>
+          {renderOption("Hiragana", settingsEnum.kanaType.HIRAGANA, "あ")}
+          {renderOption("Katakana", settingsEnum.kanaType.KATAKANA, "ア")}
+          {renderOption("With marks", settingsEnum.kanaType.WITH_MARKS, "が")}
+          {renderOption("Combined", settingsEnum.kanaType.COMBINED, "きゃ")}
+        </View>
+        <Action
+          style={styles.action}
+          onPress={() =>
+            dispatch({
+              type: settingsEnum.actionTypes.SET_KANA_TYPES,
+              payload: selected,
+            })
+          }
+          text="Select"
+        />
       </View>
-      <Action
-        style={styles.action}
-        onPress={() =>
-          dispatch({
-            type: settingsEnum.actionTypes.SET_KANA_TYPES,
-            payload: selected,
-          })
-        }
-        text="Select"
-      />
     </Screen>
   );
 }
@@ -64,6 +68,17 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
+    justifyContent: "space-around",
+  },
+  normal: {
+    flex: 1,
+    justifyContent: "space-around",
+  },
+  tablet: {
+    flex: 1,
+    width: "70%",
+    marginLeft: "auto",
+    marginRight: "auto",
     justifyContent: "space-around",
   },
   comment: {

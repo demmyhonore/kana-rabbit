@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import * as settingsEnum from "../enum/settings";
 import defaultStyles from "../config/styles";
 import { useSettings } from "../context/settings";
+import { useDetectTablet } from "../hooks/use-detect-tablet";
 
 import Screen from "../components/screen";
 import Comment from "../components/comment";
@@ -12,6 +13,7 @@ import OptionText from "../components/option-text";
 import Action from "../components/action";
 
 export default function ChooseKanaOrderScreen() {
+  const isTablet = useDetectTablet();
   const [, dispatch] = useSettings();
 
   const [selected, setSelected] = useState(settingsEnum.kanaOrder.NEWBIE);
@@ -24,21 +26,23 @@ export default function ChooseKanaOrderScreen() {
 
   return (
     <Screen style={styles.screen}>
-      <Comment containerStyle={styles.comment} text="Pfff.. what order?" />
-      <View>
-        {renderOption("Newbie", settingsEnum.kanaOrder.NEWBIE)}
-        {renderOption("Random", settingsEnum.kanaOrder.RANDOM)}
+      <View style={[isTablet ? styles.tablet : styles.normal]}>
+        <Comment containerStyle={styles.comment} text="Pfff.. what order?" />
+        <View>
+          {renderOption("Newbie", settingsEnum.kanaOrder.NEWBIE)}
+          {renderOption("Random", settingsEnum.kanaOrder.RANDOM)}
+        </View>
+        <Action
+          style={styles.action}
+          onPress={() =>
+            dispatch({
+              type: settingsEnum.actionTypes.SET_KANA_ORDER,
+              payload: selected,
+            })
+          }
+          text="Start kana"
+        />
       </View>
-      <Action
-        style={styles.action}
-        onPress={() =>
-          dispatch({
-            type: settingsEnum.actionTypes.SET_KANA_ORDER,
-            payload: selected,
-          })
-        }
-        text="Start kana"
-      />
     </Screen>
   );
 }
@@ -47,6 +51,17 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
+    justifyContent: "space-around",
+  },
+  normal: {
+    flex: 1,
+    justifyContent: "space-around",
+  },
+  tablet: {
+    flex: 1,
+    width: "70%",
+    marginLeft: "auto",
+    marginRight: "auto",
     justifyContent: "space-around",
   },
   comment: {

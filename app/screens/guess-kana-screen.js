@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 import * as kanaEnum from "../enum/kana";
 import * as answerEnum from "../enum/answer";
+import * as settingsEnum from "../enum/settings";
 import defaultStyles from "../config/styles";
 
 import { getCurrentKana } from "../utils/kana";
 import { useSettings } from "../context/settings";
 import { useKana } from "../context/kana";
 import { useAnswer } from "../hooks/use-answer";
+import { useDetectTablet } from "../hooks/use-detect-tablet";
 
 import Screen from "../components/screen";
 import Comment from "../components/comment";
@@ -18,6 +20,7 @@ import Action from "../components/action";
 import IconButton from "../components/icon-button";
 
 export default function GuessKanaScreen() {
+  const isTablet = useDetectTablet();
   const [settings] = useSettings();
   const [kana, dispatch] = useKana();
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
@@ -75,7 +78,6 @@ export default function GuessKanaScreen() {
     return (
       <Screen style={styles.screen}>
         <Comment
-          textStyle={styles.commentText}
           text="GOOD job! You finished all the kana!"
         />
       </Screen>
@@ -86,14 +88,24 @@ export default function GuessKanaScreen() {
     return (
       <Screen style={styles.screen} avoidKeyboard>
         <View style={styles.top}>
-          <Image
-            style={styles.character}
-            source={require("../assets/dummyCharacter.png")}
+          <Comment
+            textStyle={[isTablet ? styles.commentTextTablet: styles.commentText]}
+            text="Very good!"
           />
-          <Comment textStyle={styles.commentText} text="Very good!" />
         </View>
-        <View style={styles.center}>
-          <KanaText style={styles.currentKana} text={currentKana.symbol} />
+        <View style={[styles.center, isTablet && styles.centerTablet]}>
+          <KanaText
+            style={[
+              styles.currentKana,
+              currentKana.type === settingsEnum.kanaType.COMBINED &&
+                styles.currentKanaCombined,
+              isTablet && styles.currentKanaTablet,
+              isTablet &&
+                currentKana.type === settingsEnum.kanaType.COMBINED &&
+                styles.currentKanaTabletCombined,
+            ]}
+            text={currentKana.symbol}
+          />
           <IconButton
             style={styles.restartIcon}
             name="restart"
@@ -115,14 +127,24 @@ export default function GuessKanaScreen() {
     return (
       <Screen style={styles.screen} avoidKeyboard>
         <View style={styles.top}>
-          <Image
-            style={styles.character}
-            source={require("../assets/dummyCharacter.png")}
+          <Comment
+            textStyle={[isTablet ? styles.commentTextTablet: styles.commentText]}
+            text="Try again.."
           />
-          <Comment textStyle={styles.commentText} text="Try again.." />
         </View>
-        <View style={styles.center}>
-          <KanaText style={styles.currentKana} text={currentKana.symbol} />
+        <View style={[styles.center, isTablet && styles.centerTablet]}>
+          <KanaText
+            style={[
+              styles.currentKana,
+              currentKana.type === settingsEnum.kanaType.COMBINED &&
+                styles.currentKanaCombined,
+              isTablet && styles.currentKanaTablet,
+              isTablet &&
+                currentKana.type === settingsEnum.kanaType.COMBINED &&
+                styles.currentKanaTabletCombined,
+            ]}
+            text={currentKana.symbol}
+          />
           <IconButton
             style={styles.restartIcon}
             name="restart"
@@ -144,7 +166,6 @@ export default function GuessKanaScreen() {
     return (
       <Screen style={styles.screen}>
         <Comment
-          textStyle={styles.commentText}
           text="Oh no.. correct sound is: "
           answer={currentKana.sound}
         />
@@ -156,19 +177,24 @@ export default function GuessKanaScreen() {
       </Screen>
     );
   }
-
   return (
     <Screen style={styles.screen} avoidKeyboard>
       <View style={styles.top}>
-        <Image
-          style={styles.character}
-          source={require("../assets/dummyCharacter.png")}
-        />
-        {/* <Comment textStyle={styles.commentText} text="Yes... ?" /> */}
-        <Comment textStyle={styles.commentText} text="Yes yes yes yes" />
+        <Comment textStyle={[isTablet ? styles.commentTextTablet: styles.commentText]} text="Yes.. ?" />
       </View>
-      <View style={styles.center}>
-        <KanaText style={styles.currentKana} text={currentKana.symbol} />
+      <View style={[styles.center, isTablet && styles.centerTablet]}>
+        <KanaText
+          style={[
+            styles.currentKana,
+            currentKana.type === settingsEnum.kanaType.COMBINED &&
+              styles.currentKanaCombined,
+            isTablet && styles.currentKanaTablet,
+            isTablet &&
+              currentKana.type === settingsEnum.kanaType.COMBINED &&
+              styles.currentKanaTabletCombined,
+          ]}
+          text={currentKana.symbol}
+        />
         <IconButton
           style={styles.restartIcon}
           name="restart"
@@ -193,12 +219,10 @@ const styles = StyleSheet.create({
     padding: defaultStyles.spacing.s3,
   },
   top: {
-    marginTop: defaultStyles.spacing.s1,
     marginBottom: defaultStyles.spacing.s0,
-    minHeight: 70,
-    alignItems: "flex-start",
+    height: 110,
+    alignItems: "center",
     justifyContent: "center",
-    paddingLeft: 75,
   },
   character: {
     position: "absolute",
@@ -209,17 +233,33 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   commentText: {
-    fontSize: 30,
-    lineHeight: 35,
+    fontSize: 40,
+    lineHeight: 50,
+  },
+  commentTextTablet: {
+    fontSize: 65,
+    lineHeight: 75,
   },
   center: {
     width: "100%",
-    alignItems: "center",
     justifyContent: "center",
+  },
+  centerTablet: {
+    width: "80%",
   },
   currentKana: {
     fontSize: 180,
+    textAlign: "center",
     color: defaultStyles.colors.white,
+  },
+  currentKanaCombined: {
+    fontSize: 120,
+  },
+  currentKanaTablet: {
+    fontSize: 300,
+  },
+  currentKanaTabletCombined: {
+    fontSize: 200,
   },
   inputCorrect: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,
