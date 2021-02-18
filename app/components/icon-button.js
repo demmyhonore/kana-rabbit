@@ -4,8 +4,11 @@ import { TouchableHighlight, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import defaultStyles from "../config/styles";
+import { useDetectTablet } from "../hooks/use-detect-tablet";
 
-export default function IconButton({ style, size = 20, name, onPress }) {
+export default function IconButton({ style, name, onPress }) {
+  const isTablet = useDetectTablet();
+
   return (
     <TouchableHighlight
       style={[styles.root, style]}
@@ -14,7 +17,7 @@ export default function IconButton({ style, size = 20, name, onPress }) {
     >
       <MaterialCommunityIcons
         name={name}
-        size={size}
+        size={isTablet ? 40 : 26}
         color={defaultStyles.colors.grayishViolet}
       />
     </TouchableHighlight>
@@ -24,13 +27,12 @@ export default function IconButton({ style, size = 20, name, onPress }) {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: defaultStyles.colors.paleOrange,
-    padding: defaultStyles.spacing["s-1"],
+    padding: defaultStyles.spacing["s-2"],
     borderRadius: 50,
   },
 });
 
 IconButton.propTypes = {
-  size: PropTypes.number,
   name: PropTypes.string,
   onPress: PropTypes.func,
 };
