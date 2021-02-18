@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { StyleSheet, TextInput } from "react-native";
 
 import defaultStyles from "../config/styles";
+import { useDetectTablet } from "../hooks/use-detect-tablet";
 
 export default function KanaInput({
   style,
@@ -12,9 +13,11 @@ export default function KanaInput({
   answerLength,
   caretHidden,
 }) {
+  const isTablet = useDetectTablet();
+
   return (
     <TextInput
-      style={[styles.root, style]}
+      style={[styles.root, isTablet && styles.tablet, style]}
       placeholder={placeholder}
       value={answer}
       onChangeText={onAnswerChange}
@@ -38,6 +41,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: 80,
     height: 55,
+  },
+  tablet: {
+    fontSize: 40,
+    width: 140,
+    height: 90,
   },
 });
 
