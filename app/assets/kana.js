@@ -73,8 +73,8 @@ export default [
     isCurrent: false,
   },
   {
-    symbol: "しゃ",
-    sound: "sha",
+    symbol: "カカ",
+    sound: "kaka",
     type: setttingsEnum.kanaType.COMBINED,
     status: kanaEnum.status.IDLE,
     isCurrent: false,
