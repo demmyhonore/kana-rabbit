@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 
 import * as kanaEnum from "../enum/kana";
 import * as answerEnum from "../enum/answer";
@@ -14,6 +14,7 @@ import { useDetectTablet } from "../hooks/use-detect-tablet";
 
 import Screen from "../components/screen";
 import Comment from "../components/comment";
+import Text from "../components/text";
 import KanaText from "../components/kana-text";
 import KanaInput from "../components/kana-input";
 import Action from "../components/action";
@@ -77,9 +78,28 @@ export default function GuessKanaScreen() {
   if (!currentKana) {
     return (
       <Screen style={styles.screen}>
-        <Comment
-          text="GOOD job! You finished all the kana!"
+        <Comment text="You are goowd!!" />
+        <Image
+          style={[
+            styles.demmyAndTomoImage,
+            isTablet && styles.demmyAndTomoImageTablet,
+          ]}
+          source={require("../assets/demmy-and-tomo.jpg")}
         />
+        <View>
+          <Text
+            style={styles.endScreenText}
+            text="You found Demmy & Tomo in the snow."
+          />
+          <Text
+            style={styles.endScreenText}
+            text="How can we make kana learning more fun for you?"
+          />
+        </View>
+        <View style={styles.actions}>
+          <IconButton style={styles.mailIcon} name="email" onPress={() => ""} />
+          <IconButton name="restart" onPress={() => ""} />
+        </View>
       </Screen>
     );
   }
@@ -89,7 +109,9 @@ export default function GuessKanaScreen() {
       <Screen style={styles.screen} avoidKeyboard>
         <View style={styles.top}>
           <Comment
-            textStyle={[isTablet ? styles.commentTextTablet: styles.commentText]}
+            textStyle={[
+              isTablet ? styles.commentTextTablet : styles.commentText,
+            ]}
             text="Very good!"
           />
         </View>
@@ -128,7 +150,9 @@ export default function GuessKanaScreen() {
       <Screen style={styles.screen} avoidKeyboard>
         <View style={styles.top}>
           <Comment
-            textStyle={[isTablet ? styles.commentTextTablet: styles.commentText]}
+            textStyle={[
+              isTablet ? styles.commentTextTablet : styles.commentText,
+            ]}
             text="Try again.."
           />
         </View>
@@ -165,10 +189,7 @@ export default function GuessKanaScreen() {
   if (answerStatus === answerEnum.status.SECOND_ATTEMPT) {
     return (
       <Screen style={styles.screen}>
-        <Comment
-          text="Oh no.. correct sound is: "
-          answer={currentKana.sound}
-        />
+        <Comment text="Oh no.. correct sound is: " answer={currentKana.sound} />
         <Action
           style={styles.action}
           onPress={() => setAnswerStatus(answerEnum.status.WRONG)}
@@ -180,7 +201,10 @@ export default function GuessKanaScreen() {
   return (
     <Screen style={styles.screen} avoidKeyboard>
       <View style={styles.top}>
-        <Comment textStyle={[isTablet ? styles.commentTextTablet: styles.commentText]} text="Yes.. ?" />
+        <Comment
+          textStyle={[isTablet ? styles.commentTextTablet : styles.commentText]}
+          text="Yes.. ?"
+        />
       </View>
       <View style={[styles.center, isTablet && styles.centerTablet]}>
         <KanaText
@@ -218,6 +242,12 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.grayishViolet,
     padding: defaultStyles.spacing.s3,
   },
+  endScreen: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: defaultStyles.colors.grayishViolet,
+    padding: defaultStyles.spacing.s3,
+  },
   top: {
     marginBottom: defaultStyles.spacing.s0,
     height: 110,
@@ -244,6 +274,12 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
   },
+  endScreenCenter: {
+    width: "100%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    backgroundColor: "red",
+  },
   centerTablet: {
     width: "80%",
   },
@@ -261,6 +297,21 @@ const styles = StyleSheet.create({
   currentKanaTabletCombined: {
     fontSize: 200,
   },
+  demmyAndTomoImage: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    width: 270,
+    height: 145,
+    borderRadius: 20,
+  },
+  demmyAndTomoImageTablet: {
+    width: 540,
+    height: 290,
+  },
+  endScreenText: {
+    textAlign: "center",
+    marginBottom: defaultStyles.spacing.s0,
+  },
   inputCorrect: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,
   },
@@ -270,8 +321,16 @@ const styles = StyleSheet.create({
   action: {
     marginBottom: defaultStyles.spacing.s3,
   },
+  mailIcon: {
+    marginRight: defaultStyles.spacing.s3,
+  },
   restartIcon: {
     position: "absolute",
     right: 0,
+  },
+  actions: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
 });

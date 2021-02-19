@@ -9,7 +9,7 @@ export default function OptionText({ style, text }) {
   const isTablet = useDetectTablet();
 
   return (
-    <Text style={[styles.root, , isTablet && styles.tablet, style]}>
+    <Text style={[styles.root, isTablet && styles.tablet, style]}>
       {text}
     </Text>
   );
@@ -18,9 +18,8 @@ export default function OptionText({ style, text }) {
 const styles = StyleSheet.create({
   root: {
     fontFamily: "LexendMega_400Regular",
-    color: defaultStyles.colors.blue,
+    color: defaultStyles.colors.white,
     fontSize: 24,
-    textTransform: "lowercase",
   },
   tablet: {
     fontSize: 40,

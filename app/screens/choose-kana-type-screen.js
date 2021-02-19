@@ -9,7 +9,7 @@ import { useDetectTablet } from "../hooks/use-detect-tablet";
 import Screen from "../components/screen";
 import Comment from "../components/comment";
 import Option from "../components/option";
-import OptionText from "../components/option-text";
+import Text from "../components/text";
 import KanaText from "../components/kana-text";
 import Action from "../components/action";
 
@@ -34,7 +34,7 @@ export default function ChooseKanaTypeScreen() {
       onPress={() => handleOptionPress(value)}
       isSelected={selected[value]}
     >
-      <OptionText style={styles.optionText} text={text} />
+      <Text style={styles.optionText} text={text} />
       <KanaText text={kana} />
     </Option>
   );
@@ -86,6 +86,8 @@ const styles = StyleSheet.create({
     marginBottom: defaultStyles.spacing.s0,
   },
   optionText: {
+    color: defaultStyles.colors.blue,
+    textTransform: "lowercase",
     marginRight: defaultStyles.spacing.s0,
   },
   action: {
