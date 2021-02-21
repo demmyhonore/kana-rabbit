@@ -1,8 +1,9 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from 'react';
+import cloneDeep from 'lodash.clonedeep';
 
-import allKana from "../assets/kana";
-import * as settingsEnum from "../enum/settings";
-import * as kanaEnum from "../enum/kana";
+import allKana from '../assets/kana';
+import * as settingsEnum from '../enum/settings';
+import * as kanaEnum from '../enum/kana';
 import {
   getSelectedKana,
   addNewAndSetCurrentKana,
@@ -12,11 +13,22 @@ import {
   removeCurrentKana,
   setCurrentKana,
   kanaHasStatus,
-} from "../utils/kana";
-import { useSettings } from "./settings";
+} from '../utils/kana';
+import { useSettings } from './settings';
 
 const KanaContext = createContext();
-KanaContext.displayName = "KanaContext";
+KanaContext.displayName = 'KanaContext';
+
+const setInitialKana = (kana, settings) => {
+  const selectedKana = getSelectedKana(kana, settings);
+
+  const selectedAndSortedKana =
+    settings.kanaOrder === settingsEnum.kanaOrder.NEWBIE
+      ? selectedKana
+      : shuffleKana(selectedKana);
+
+  return addNewAndSetCurrentKana(selectedAndSortedKana, settings.kanaNewCount);
+};
 
 function reducer(kana, action) {
   switch (action.type) {
@@ -44,17 +56,8 @@ function reducer(kana, action) {
 function KanaProvider(props) {
   const [settings] = useSettings();
   const [kana, dispatch] = useReducer(reducer, null, () => {
-    const selectedKana = getSelectedKana(allKana, settings);
-
-    const selectedAndSortedKana =
-      settings.kanaOrder === settingsEnum.kanaOrder.NEWBIE
-        ? selectedKana
-        : shuffleKana(selectedKana);
-
-    return addNewAndSetCurrentKana(
-      selectedAndSortedKana,
-      settings.kanaNewCount
-    );
+    const deepClonedKana = cloneDeep(allKana);
+    return setInitialKana(deepClonedKana, settings);
   });
 
   const value = [kana, dispatch];

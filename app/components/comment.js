@@ -27,8 +27,8 @@ export default function Comment({ text, isSmall, style: customStyle }) {
 const styles = StyleSheet.create({
   root: {
     fontFamily: 'Lemon_400Regular',
-    fontSize: 65,
-    lineHeight: 75,
+    fontSize: 60,
+    lineHeight: 70,
     textAlign: 'left',
     color: defaultStyles.colors.white,
   },

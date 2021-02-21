@@ -1,5 +1,5 @@
-import * as kanaEnum from "../enum/kana";
-import * as settingsEnum from "../enum/settings";
+import * as kanaEnum from '../enum/kana';
+import * as settingsEnum from '../enum/settings';
 
 const getSelectedKana = (kana, settings) => {
   return [...kana].reduce((kana, character) => {
@@ -56,7 +56,7 @@ const addNewAndSetCurrentKana = (kana, amountNew) => {
   }, []);
 };
 
-const shuffleKana = (kana) => {
+const shuffleKana = kana => {
   const copiedKana = [...kana];
 
   for (let i = copiedKana.length - 1; i > 0; i--) {
@@ -67,7 +67,7 @@ const shuffleKana = (kana) => {
   return copiedKana;
 };
 
-const promoteCurrentKana = (kana) => {
+const promoteCurrentKana = kana => {
   return [...kana].reduce((kana, character) => {
     if (character.isCurrent) {
       character.status =
@@ -80,7 +80,7 @@ const promoteCurrentKana = (kana) => {
   }, []);
 };
 
-const demoteCurrentKana = (kana) => {
+const demoteCurrentKana = kana => {
   return [...kana].reduce((kana, character) => {
     if (character.isCurrent) {
       character.status = kanaEnum.status.WRONG;
@@ -90,7 +90,7 @@ const demoteCurrentKana = (kana) => {
   }, []);
 };
 
-const removeCurrentKana = (kana) => {
+const removeCurrentKana = kana => {
   return [...kana].reduce((kana, character) => {
     if (character.isCurrent) {
       character.isCurrent = false;
@@ -117,10 +117,10 @@ const setCurrentKana = (kana, status) => {
   }, []);
 };
 
-const getCurrentKana = (kana) => kana.find((character) => character.isCurrent);
+const getCurrentKana = kana => kana.find(character => character.isCurrent);
 
 const kanaHasStatus = (kana, status) =>
-  kana.some((character) => character.status === status);
+  kana.some(character => character.status === status);
 
 export {
   getSelectedKana,
