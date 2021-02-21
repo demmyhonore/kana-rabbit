@@ -17,6 +17,7 @@ export default function Comment({ text, isSmall, style: customStyle }) {
         isTablet && isSmall && styles.smallTablet,
         customStyle,
       ]}
+      numberOfLines={isSmall ? 2 : undefined}
     >
       {text}
     </Text>
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lemon_400Regular',
     fontSize: 65,
     lineHeight: 75,
-    textAlign: 'center',
+    textAlign: 'left',
     color: defaultStyles.colors.white,
   },
   small: {

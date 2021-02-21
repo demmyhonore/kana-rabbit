@@ -11,8 +11,8 @@ function GuessKanaAnswerScreen({ onPress, currentKana, commentText }) {
   return (
     <RegularScreen>
       <View>
-        <Comment text={commentText} />
-        <Comment style={styles.correctSound} text={currentKana.sound} />
+        <Comment style={styles.comment} text={commentText} />
+        <Comment style={[styles.comment, styles.correctSound]} text={currentKana.sound} />
       </View>
       <Action onPress={onPress} text='Continue' />
     </RegularScreen>
@@ -20,6 +20,9 @@ function GuessKanaAnswerScreen({ onPress, currentKana, commentText }) {
 }
 
 const styles = StyleSheet.create({
+  comment: {
+    textAlign: 'center',
+  },
   correctSound: {
     color: defaultStyles.colors.paleLimeGreen,
     textDecorationLine: 'underline',

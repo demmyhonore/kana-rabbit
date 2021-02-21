@@ -37,7 +37,7 @@ export default function ChooseTypeScreen() {
 
   return (
     <RegularScreen>
-      <Comment text='Which kana then..?' />
+      <Comment style={styles.comment} text='Which kana then..?' />
       <View style={styles.options}>
         {renderOption('Hiragana', settingsEnum.kanaType.HIRAGANA, 'あ')}
         {renderOption('Katakana', settingsEnum.kanaType.KATAKANA, 'ア')}
@@ -60,6 +60,9 @@ export default function ChooseTypeScreen() {
 }
 
 const styles = StyleSheet.create({
+  comment: {
+    textAlign: 'center',
+  },
   options: {
     width: '100%',
   },

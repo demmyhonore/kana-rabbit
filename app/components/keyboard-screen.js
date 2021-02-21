@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: defaultStyles.spacing.s3,
+    padding: defaultStyles.spacing.s2,
     justifyContent: 'space-around',
     alignItems: 'center',
   },
   tablet: {
-    width: '70%',
+    width: '85%',
     marginLeft: 'auto',
     marginRight: 'auto',
   },

@@ -5,6 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import * as settingsEnum from '../../enum/settings';
 import * as answerEnum from '../../enum/answer';
 import defaultStyles from '../../config/styles';
+import { useDetectTablet } from '../../hooks/use-detect-tablet';
 import KeyboardScreen from '../keyboard-screen';
 import Comment from '../comment';
 import CurrentKana from '../current-kana';
@@ -19,22 +20,28 @@ function GuessKanaInputScreen({
   onAnswerChange,
   onRestartPress,
 }) {
+  const isTablet = useDetectTablet();
   const isFirstAttempt = answerStatus === answerEnum.status.FIRST_ATTEMPT;
   const isCorrectAnswer =
     answerStatus === answerEnum.status.SHOW_CORRECT_ANSWER;
 
   return (
     <KeyboardScreen>
-      <Comment text={commentText} isSmall />
-      <View style={styles.center}>
-        <CurrentKana
-          kana={currentKana.symbol}
-          isCombined={currentKana.type === settingsEnum.kanaType.COMBINED}
+      <View style={[styles.top, isTablet && styles.topTablet]}>
+        <Comment
+          text={commentText}
+          isSmall
         />
         <IconButton
           style={styles.iconRestart}
           name='restart'
           onPress={onRestartPress}
+        />
+      </View>
+      <View>
+        <CurrentKana
+          kana={currentKana.symbol}
+          isCombined={currentKana.type === settingsEnum.kanaType.COMBINED}
         />
       </View>
       <KanaInput
@@ -51,12 +58,16 @@ function GuessKanaInputScreen({
 }
 
 const styles = StyleSheet.create({
-  center: {
-    justifyContent: 'center',
+  top: {
     width: '100%',
+    paddingRight: 50,
+  },
+  topTablet: {
+    paddingRight: 75,
   },
   iconRestart: {
     position: 'absolute',
+    top: 7,
     right: 0,
   },
   inputCorrect: {

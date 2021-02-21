@@ -22,7 +22,7 @@ export default function ChooseOrderScreen() {
 
   return (
     <RegularScreen>
-      <Comment text='Pfff.. what order?' />
+      <Comment style={styles.comment} text='Pfff.. what order?' />
       <View style={styles.options}>
         {renderOption('Newbie', settingsEnum.kanaOrder.NEWBIE)}
         {renderOption('Random', settingsEnum.kanaOrder.RANDOM)}
@@ -42,6 +42,9 @@ export default function ChooseOrderScreen() {
 }
 
 const styles = StyleSheet.create({
+  comment: {
+    textAlign: 'center',
+  },
   options: {
     width: '100%',
   },
