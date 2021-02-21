@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   },
   iconRestart: {
     position: 'absolute',
-    top: 7,
     right: 0,
   },
   inputCorrect: {

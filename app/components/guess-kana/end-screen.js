@@ -14,7 +14,7 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
 
   return (
     <RegularScreen>
-      <Comment text='You are goowd!!' />
+      <Comment text='You are goowd!' />
       <Image
         style={[styles.image, isTablet && styles.imageTablet]}
         source={require('../../assets/snow.jpg')}

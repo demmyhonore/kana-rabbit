@@ -11,14 +11,14 @@ export default function IconButton({ style: customStyle, name, onPress }) {
 
   return (
     <TouchableHighlight
-      style={[styles.root, customStyle]}
+      style={[styles.root, isTablet && styles.rootTablet, customStyle]}
       onPress={onPress}
       underlayColor={defaultStyles.colors.chiffon}
     >
       <MaterialCommunityIcons
         name={name}
         size={isTablet ? 45 : 30}
-        color={defaultStyles.colors.grayishViolet}
+        color={defaultStyles.colors.white}
       />
     </TouchableHighlight>
   );
@@ -27,8 +27,11 @@ export default function IconButton({ style: customStyle, name, onPress }) {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: defaultStyles.colors.paleOrange,
-    padding: defaultStyles.spacing['s-2'],
+    padding: defaultStyles.spacing.['s-1'],
     borderRadius: 50,
+  },
+  rootTablet: {
+    padding: defaultStyles.spacing.s1,
   },
 });
 
