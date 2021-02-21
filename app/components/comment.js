@@ -1,40 +1,51 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Text, StyleSheet } from "react-native";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, StyleSheet } from 'react-native';
 
-import defaultStyles from "../config/styles";
-import { useDetectTablet } from "../hooks/use-detect-tablet";
+import defaultStyles from '../config/styles';
+import { useDetectTablet } from '../hooks/use-detect-tablet';
 
-export default function Comment({ containerStyle, textStyle, text, answer }) {
+export default function Comment({ text, isSmall, style: customStyle }) {
   const isTablet = useDetectTablet();
 
   return (
-    <Text style={[styles.root, isTablet && styles.tablet, containerStyle]}>
-      <Text style={textStyle}>{text}</Text>
-      {answer ? <Text style={[styles.answer, textStyle]}>{answer}</Text> : null}
+    <Text
+      style={[
+        styles.root,
+        isSmall && styles.small,
+        isTablet && styles.tablet,
+        isTablet && isSmall && styles.smallTablet,
+        customStyle,
+      ]}
+    >
+      {text}
     </Text>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    fontFamily: "Lemon_400Regular",
+    fontFamily: 'Lemon_400Regular',
     fontSize: 65,
     lineHeight: 75,
-    textAlign: "center",
+    textAlign: 'center',
     color: defaultStyles.colors.white,
+  },
+  small: {
+    fontSize: 40,
+    lineHeight: 50,
   },
   tablet: {
     fontSize: 100,
     lineHeight: 120,
   },
-  answer: {
-    color: defaultStyles.colors.paleLimeGreen,
-    textDecorationLine: "underline",
+  smallTablet: {
+    fontSize: 65,
+    lineHeight: 75,
   },
 });
 
 Comment.propTypes = {
   text: PropTypes.string,
-  answer: PropTypes.string,
+  isSmall: PropTypes.bool,
 };

@@ -1,34 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { View, Image, StyleSheet } from "react-native";
+import React, { useState, useEffect } from 'react';
 
-import * as kanaEnum from "../enum/kana";
-import * as answerEnum from "../enum/answer";
-import * as settingsEnum from "../enum/settings";
-import defaultStyles from "../config/styles";
-
-import { getCurrentKana } from "../utils/kana";
-import { useSettings } from "../context/settings";
-import { useKana } from "../context/kana";
-import { useAnswer } from "../hooks/use-answer";
-import { useDetectTablet } from "../hooks/use-detect-tablet";
-
-import Screen from "../components/screen";
-import Comment from "../components/comment";
-import Text from "../components/text";
-import KanaText from "../components/kana-text";
-import KanaInput from "../components/kana-input";
-import Action from "../components/action";
-import IconButton from "../components/icon-button";
+import * as kanaEnum from '../enum/kana';
+import * as answerEnum from '../enum/answer';
+import { getCurrentKana } from '../utils/kana';
+import { useSettings } from '../context/settings';
+import { useKana } from '../context/kana';
+import { useAnswer } from '../hooks/use-answer';
+import InputScreen from '../components/guess-kana/input-screen';
+import AnswerScreen from '../components/guess-kana/answer-screen';
+import EndScreen from '../components/guess-kana/end-screen';
 
 export default function GuessKanaScreen() {
-  const isTablet = useDetectTablet();
   const [settings] = useSettings();
   const [kana, dispatch] = useKana();
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
   const [answerStatus, setAnswerStatus] = useState(answerEnum.status.PENDING);
   const currentKana = getCurrentKana(kana);
 
-  const dispatchAndResetAnswer = (action) => {
+  const dispatchAndResetAnswer = action => {
     dispatch(action);
     clearAnswer();
     setAnswerStatus(answerEnum.status.PENDING);
@@ -76,261 +65,52 @@ export default function GuessKanaScreen() {
   }, [answerStatus]);
 
   if (!currentKana) {
-    return (
-      <Screen style={styles.screen}>
-        <Comment text="You are goowd!!" />
-        <Image
-          style={[
-            styles.demmyAndTomoImage,
-            isTablet && styles.demmyAndTomoImageTablet,
-          ]}
-          source={require("../assets/demmy-and-tomo.jpg")}
-        />
-        <View>
-          <Text
-            style={styles.endScreenText}
-            text="You found Demmy & Tomo in the snow."
-          />
-          <Text
-            style={styles.endScreenText}
-            text="How can we make kana learning more fun for you?"
-          />
-        </View>
-        <View style={styles.actions}>
-          <IconButton style={styles.mailIcon} name="email" onPress={() => ""} />
-          <IconButton name="restart" onPress={() => ""} />
-        </View>
-      </Screen>
-    );
+    return <EndScreen onMailPress={() => ''} onRestartPress={() => ''} />;
   }
 
   if (answerStatus === answerEnum.status.SHOW_CORRECT_ANSWER) {
     return (
-      <Screen style={styles.screen} avoidKeyboard>
-        <View style={styles.top}>
-          <Comment
-            textStyle={[
-              isTablet ? styles.commentTextTablet : styles.commentText,
-            ]}
-            text="Very good!"
-          />
-        </View>
-        <View style={[styles.center, isTablet && styles.centerTablet]}>
-          <KanaText
-            style={[
-              styles.currentKana,
-              currentKana.type === settingsEnum.kanaType.COMBINED &&
-                styles.currentKanaCombined,
-              isTablet && styles.currentKanaTablet,
-              isTablet &&
-                currentKana.type === settingsEnum.kanaType.COMBINED &&
-                styles.currentKanaTabletCombined,
-            ]}
-            text={currentKana.symbol}
-          />
-          <IconButton
-            style={styles.restartIcon}
-            name="restart"
-            onPress={() => ""}
-          />
-        </View>
-        <KanaInput
-          style={styles.inputCorrect}
-          placeholder="???"
-          answer={answer}
-          answerLength={currentKana.sound.length}
-          caretHidden
-        />
-      </Screen>
+      <InputScreen
+        currentKana={currentKana}
+        answer={answer}
+        commentText='Very good!'
+        answerStatus={answerStatus}
+        onAnswerChange={onAnswerChange}
+        onRestartPress={() => ''}
+      />
     );
   }
 
   if (answerStatus === answerEnum.status.FIRST_ATTEMPT) {
     return (
-      <Screen style={styles.screen} avoidKeyboard>
-        <View style={styles.top}>
-          <Comment
-            textStyle={[
-              isTablet ? styles.commentTextTablet : styles.commentText,
-            ]}
-            text="Try again.."
-          />
-        </View>
-        <View style={[styles.center, isTablet && styles.centerTablet]}>
-          <KanaText
-            style={[
-              styles.currentKana,
-              currentKana.type === settingsEnum.kanaType.COMBINED &&
-                styles.currentKanaCombined,
-              isTablet && styles.currentKanaTablet,
-              isTablet &&
-                currentKana.type === settingsEnum.kanaType.COMBINED &&
-                styles.currentKanaTabletCombined,
-            ]}
-            text={currentKana.symbol}
-          />
-          <IconButton
-            style={styles.restartIcon}
-            name="restart"
-            onPress={() => ""}
-          />
-        </View>
-        <KanaInput
-          style={styles.inputWrong}
-          placeholder="???"
-          answer={answer}
-          onAnswerChange={onAnswerChange}
-          answerLength={currentKana.sound.length}
-        />
-      </Screen>
+      <InputScreen
+        currentKana={currentKana}
+        answer={answer}
+        commentText='Try again..'
+        answerStatus={answerStatus}
+        onAnswerChange={onAnswerChange}
+        onRestartPress={() => ''}
+      />
     );
   }
 
   if (answerStatus === answerEnum.status.SECOND_ATTEMPT) {
     return (
-      <Screen style={styles.screen}>
-        <Comment text="Oh no.. correct sound is: " answer={currentKana.sound} />
-        <Action
-          style={styles.action}
-          onPress={() => setAnswerStatus(answerEnum.status.WRONG)}
-          text="Continue"
-        />
-      </Screen>
+      <AnswerScreen
+        onPress={() => setAnswerStatus(answerEnum.status.WRONG)}
+        currentKana={currentKana}
+        commentText='Oh no.. correct sound is: '
+      />
     );
   }
+
   return (
-    <Screen style={styles.screen} avoidKeyboard>
-      <View style={styles.top}>
-        <Comment
-          textStyle={[isTablet ? styles.commentTextTablet : styles.commentText]}
-          text="Yes.. ?"
-        />
-      </View>
-      <View style={[styles.center, isTablet && styles.centerTablet]}>
-        <KanaText
-          style={[
-            styles.currentKana,
-            currentKana.type === settingsEnum.kanaType.COMBINED &&
-              styles.currentKanaCombined,
-            isTablet && styles.currentKanaTablet,
-            isTablet &&
-              currentKana.type === settingsEnum.kanaType.COMBINED &&
-              styles.currentKanaTabletCombined,
-          ]}
-          text={currentKana.symbol}
-        />
-        <IconButton
-          style={styles.restartIcon}
-          name="restart"
-          onPress={() => ""}
-        />
-      </View>
-      <KanaInput
-        placeholder="???"
-        answer={answer}
-        onAnswerChange={onAnswerChange}
-        answerLength={currentKana.sound.length}
-      />
-    </Screen>
+    <InputScreen
+      currentKana={currentKana}
+      answer={answer}
+      commentText='Yes.. ?'
+      onAnswerChange={onAnswerChange}
+      onRestartPress={() => ''}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  screen: {
-    alignItems: "center",
-    justifyContent: "space-around",
-    backgroundColor: defaultStyles.colors.grayishViolet,
-    padding: defaultStyles.spacing.s3,
-  },
-  endScreen: {
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: defaultStyles.colors.grayishViolet,
-    padding: defaultStyles.spacing.s3,
-  },
-  top: {
-    marginBottom: defaultStyles.spacing.s0,
-    height: 110,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  character: {
-    position: "absolute",
-    left: 0,
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    overflow: "hidden",
-  },
-  commentText: {
-    fontSize: 40,
-    lineHeight: 50,
-  },
-  commentTextTablet: {
-    fontSize: 65,
-    lineHeight: 75,
-  },
-  center: {
-    width: "100%",
-    justifyContent: "center",
-  },
-  endScreenCenter: {
-    width: "100%",
-    justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "red",
-  },
-  centerTablet: {
-    width: "80%",
-  },
-  currentKana: {
-    fontSize: 180,
-    textAlign: "center",
-    color: defaultStyles.colors.white,
-  },
-  currentKanaCombined: {
-    fontSize: 120,
-  },
-  currentKanaTablet: {
-    fontSize: 300,
-  },
-  currentKanaTabletCombined: {
-    fontSize: 200,
-  },
-  demmyAndTomoImage: {
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: 270,
-    height: 145,
-    borderRadius: 20,
-  },
-  demmyAndTomoImageTablet: {
-    width: 540,
-    height: 290,
-  },
-  endScreenText: {
-    textAlign: "center",
-    marginBottom: defaultStyles.spacing.s0,
-  },
-  inputCorrect: {
-    backgroundColor: defaultStyles.colors.paleLimeGreen,
-  },
-  inputWrong: {
-    backgroundColor: defaultStyles.colors.carnationPink,
-  },
-  action: {
-    marginBottom: defaultStyles.spacing.s3,
-  },
-  mailIcon: {
-    marginRight: defaultStyles.spacing.s3,
-  },
-  restartIcon: {
-    position: "absolute",
-    right: 0,
-  },
-  actions: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-});

@@ -5,7 +5,7 @@ import { Text, StyleSheet } from "react-native";
 import defaultStyles from "../config/styles";
 import { useDetectTablet } from "../hooks/use-detect-tablet";
 
-export default function KanaText({ style, text }) {
+export default function KanaText({ style, kana }) {
   const isTablet = useDetectTablet();
 
   return (
@@ -13,7 +13,7 @@ export default function KanaText({ style, text }) {
       style={[styles.root, isTablet && styles.tablet, style]}
       numberOfLines={1}
     >
-      {text}
+      {kana}
     </Text>
   );
 }
@@ -30,5 +30,5 @@ const styles = StyleSheet.create({
 });
 
 KanaText.propTypes = {
-  text: PropTypes.string,
+  kana: PropTypes.string,
 };

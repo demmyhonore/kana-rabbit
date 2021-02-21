@@ -1,19 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { View, TouchableHighlight, StyleSheet } from "react-native";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, TouchableHighlight, StyleSheet } from 'react-native';
 
-import defaultStyles from "../config/styles";
-import { useDetectTablet } from "../hooks/use-detect-tablet";
+import defaultStyles from '../config/styles';
+import { useDetectTablet } from '../hooks/use-detect-tablet';
+import Text from '../components/text';
 
-export default function Option({ onPress, children, isSelected }) {
+export default function Option({ onPress, isSelected, children }) {
   const isTablet = useDetectTablet();
 
   return (
     <TouchableHighlight
       style={[
         styles.root,
-        isSelected && styles.selected,
         isTablet && styles.tablet,
+        isSelected && styles.selected,
       ]}
       onPress={onPress}
       underlayColor={defaultStyles.colors.chiffon}
@@ -27,8 +28,8 @@ const styles = StyleSheet.create({
   root: {
     backgroundColor: defaultStyles.colors.paleOrange,
     height: 55,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: defaultStyles.spacing.s0,
   },
   tablet: {
@@ -38,9 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.chiffon,
   },
   container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "baseline",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'baseline',
   },
 });
 
