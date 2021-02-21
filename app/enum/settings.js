@@ -1,18 +1,18 @@
 const actionTypes = {
-  SELECT_KANA: "selectKana",
-  SELECT_LEARNING_MODE: "selectLearningMode",
+  SET_KANA_TYPES: "setKanaTypes",
+  SET_KANA_ORDER: "setKanaOrder",
 };
 
 const kanaType = {
   HIRAGANA: "hiragana",
   KATAKANA: "katakana",
-  DIACRITICAL_MARKS: "diacriticalMarks",
-  CONTRACTED: "contracted",
+  WITH_MARKS: "withMarks",
+  COMBINED: "combined",
 };
 
-const learningMode = {
-  RANDOM_ORDER: "randomOrder",
-  NEWBIE_WAY: "newbieWay",
+const kanaOrder = {
+  RANDOM: "random",
+  NEWBIE: "newbie",
 };
 
-export { actionTypes, kanaType, learningMode };
+export { actionTypes, kanaType, kanaOrder };

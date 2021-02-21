@@ -4,6 +4,7 @@ import allKana from "../assets/kana";
 import * as settingsEnum from "../enum/settings";
 import * as kanaEnum from "../enum/kana";
 import {
+  getSelectedKana,
   addNewAndSetCurrentKana,
   shuffleKana,
   promoteCurrentKana,
@@ -31,7 +32,7 @@ function reducer(kana, action) {
       if (kanaHasStatus(kana, kanaEnum.status.CORRECT))
         return setCurrentKana(kana, kanaEnum.status.CORRECT);
       if (kanaHasStatus(kana, kanaEnum.status.IDLE)) {
-        return addNewAndSetCurrentKana(kana, action.payload.amountNewKana);
+        return addNewAndSetCurrentKana(kana, action.payload.kanaNewCount);
       } else {
         return removeCurrentKana(kana);
       }
@@ -43,12 +44,17 @@ function reducer(kana, action) {
 function KanaProvider(props) {
   const [settings] = useSettings();
   const [kana, dispatch] = useReducer(reducer, null, () => {
-    const initialKana =
-      settings.learningMode === settingsEnum.learningMode.NEWBIE_WAY
-        ? allKana
-        : shuffleKana(allKana);
+    const selectedKana = getSelectedKana(allKana, settings);
 
-    return addNewAndSetCurrentKana(initialKana, settings.amountNewKana);
+    const selectedAndSortedKana =
+      settings.kanaOrder === settingsEnum.kanaOrder.NEWBIE
+        ? selectedKana
+        : shuffleKana(selectedKana);
+
+    return addNewAndSetCurrentKana(
+      selectedAndSortedKana,
+      settings.kanaNewCount
+    );
   });
 
   const value = [kana, dispatch];

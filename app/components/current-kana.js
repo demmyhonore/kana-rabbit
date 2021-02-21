@@ -1,24 +1,45 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { StyleSheet, View, Text } from "react-native";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { StyleSheet } from 'react-native';
 
-import defaultStyles from "../config/styles";
+import defaultStyles from '../config/styles';
+import { useDetectTablet } from '../hooks/use-detect-tablet';
+import KanaText from './kana-text';
 
-export default function CurrentKana({ kana }) {
-  /* Text wrapped in view for smooth keyboard transition. */
+export default function CurrentKana({ kana, isCombined }) {
+  const isTablet = useDetectTablet();
+
   return (
-    <View>
-      <Text style={[defaultStyles.kana, styles.kana]}>{kana?.symbol}</Text>
-    </View>
+    <KanaText
+      style={[
+        styles.root,
+        isCombined && styles.combined,
+        isTablet && styles.tablet,
+        isCombined && isTablet && styles.combinedTablet,
+      ]}
+      kana={kana}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  kana: {
+  root: {
+    fontSize: 180,
+    textAlign: 'center',
+    color: defaultStyles.colors.white,
+  },
+  combined: {
+    fontSize: 120,
+  },
+  tablet: {
+    fontSize: 300,
+  },
+  combinedTablet: {
     fontSize: 200,
   },
 });
 
 CurrentKana.propTypes = {
-  kana: PropTypes.object,
+  kana: PropTypes.string,
+  isCombined: PropTypes.bool,
 };

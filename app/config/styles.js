@@ -1,8 +1,7 @@
 import colors from "./colors";
+import spacing from "./spacing";
 
 export default {
   colors,
-  kana: {
-    fontFamily: "KosugiMaru_400Regular",
-  },
+  spacing,
 };
