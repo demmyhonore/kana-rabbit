@@ -14,13 +14,13 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
 
   return (
     <RegularScreen>
-      <Comment text='You are goowd!' />
+      <Comment text='You are good!' />
       <Image
         style={[styles.image, isTablet && styles.imageTablet]}
         source={require('../../assets/snow.jpg')}
       />
       <Text
-        text='You found Demmy & Tomo in the snow. How can we make kana learning more fun for you?'
+        text='Demmy & Tomo in the snow ask: "Can we make kana learning more fun?"'
         isCenter
       />
       <View style={styles.actions}>

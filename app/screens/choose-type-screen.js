@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import * as settingsEnum from '../enum/settings';
+import * as routeEnum from '../enum/route';
 import defaultStyles from '../config/styles';
 import { useSettings } from '../context/settings';
 import RegularScreen from '../components/regular-screen';
@@ -10,7 +11,7 @@ import Option from '../components/option';
 import OptionText from '../components/option-text';
 import Action from '../components/action';
 
-export default function ChooseTypeScreen() {
+export default function ChooseTypeScreen({ navigation }) {
   const [, dispatch] = useSettings();
   const [selected, setSelected] = useState({
     [settingsEnum.kanaType.HIRAGANA]: true,
@@ -24,6 +25,14 @@ export default function ChooseTypeScreen() {
     selected[value]
       ? setSelected(prevSelected => ({ ...prevSelected, [value]: false }))
       : setSelected(prevSelected => ({ ...prevSelected, [value]: true }));
+
+  const handleActionPress = () => {
+    dispatch({
+      type: settingsEnum.actionTypes.SET_KANA_TYPES,
+      payload: selected,
+    });
+    navigation.navigate(routeEnum.route.CHOOSE_ORDER);
+  };
 
   const renderOption = (text, value, kana) => (
     <Option
@@ -46,12 +55,7 @@ export default function ChooseTypeScreen() {
       </View>
       <Action
         style={styles.action}
-        onPress={() =>
-          dispatch({
-            type: settingsEnum.actionTypes.SET_KANA_TYPES,
-            payload: selected,
-          })
-        }
+        onPress={handleActionPress}
         text='Select'
         isDisabled={noSelection}
       />

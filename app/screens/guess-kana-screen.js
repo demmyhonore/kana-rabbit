@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import * as Linking from 'expo-linking';
 
 import * as kanaEnum from '../enum/kana';
 import * as answerEnum from '../enum/answer';
@@ -10,7 +11,7 @@ import InputScreen from '../components/guess-kana/input-screen';
 import AnswerScreen from '../components/guess-kana/answer-screen';
 import EndScreen from '../components/guess-kana/end-screen';
 
-export default function GuessKanaScreen() {
+export default function GuessKanaScreen({ navigation }) {
   const [settings] = useSettings();
   const [kana, dispatch] = useKana();
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
@@ -22,6 +23,11 @@ export default function GuessKanaScreen() {
     clearAnswer();
     setAnswerStatus(answerEnum.status.PENDING);
   };
+
+  const handleRestartPress = () => navigation.popToTop();
+
+  const handleEmailPress = () =>
+    Linking.openURL('mailto:demmyhonore@gmail.com?subject=Fun idea for kanana');
 
   useEffect(() => {
     const hasAnswer = answer.length === currentKana?.sound?.length;
@@ -65,7 +71,12 @@ export default function GuessKanaScreen() {
   }, [answerStatus]);
 
   if (!currentKana) {
-    return <EndScreen onMailPress={() => ''} onRestartPress={() => ''} />;
+    return (
+      <EndScreen
+        onMailPress={handleEmailPress}
+        onRestartPress={handleRestartPress}
+      />
+    );
   }
 
   if (answerStatus === answerEnum.status.SHOW_CORRECT_ANSWER) {
@@ -76,7 +87,7 @@ export default function GuessKanaScreen() {
         commentText='Very good!'
         answerStatus={answerStatus}
         onAnswerChange={onAnswerChange}
-        onRestartPress={() => ''}
+        onRestartPress={handleRestartPress}
       />
     );
   }
@@ -89,7 +100,7 @@ export default function GuessKanaScreen() {
         commentText='Try again..'
         answerStatus={answerStatus}
         onAnswerChange={onAnswerChange}
-        onRestartPress={() => ''}
+        onRestartPress={handleRestartPress}
       />
     );
   }
@@ -110,7 +121,7 @@ export default function GuessKanaScreen() {
       answer={answer}
       commentText='Yes.. ?'
       onAnswerChange={onAnswerChange}
-      onRestartPress={() => ''}
+      onRestartPress={handleRestartPress}
     />
   );
 }

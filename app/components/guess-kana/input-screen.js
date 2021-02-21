@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   top: {
     width: '100%',
     paddingRight: 50,
+    minHeight: 100,
   },
   topTablet: {
     paddingRight: 75,

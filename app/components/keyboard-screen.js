@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: defaultStyles.spacing.s2,
+    padding: defaultStyles.spacing.s3,
     justifyContent: 'space-around',
     alignItems: 'center',
   },

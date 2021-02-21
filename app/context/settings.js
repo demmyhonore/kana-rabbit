@@ -1,9 +1,21 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from 'react';
 
-import * as settingsEnum from "../enum/settings";
+import * as settingsEnum from '../enum/settings';
 
 const SettingsContext = createContext();
-SettingsContext.displayName = "SettingsContext";
+SettingsContext.displayName = 'SettingsContext';
+
+const initialSettings = {
+  kanaTypes: {
+    [settingsEnum.kanaType.HIRAGANA]: true,
+    [settingsEnum.kanaType.KATAKANA]: false,
+    [settingsEnum.kanaType.WITH_MARKS]: false,
+    [settingsEnum.kanaType.COMBINED]: false,
+  },
+  kanaNewCount: 5,
+  showCorrectAnswerDuration: 1000,
+  kanaOrder: settingsEnum.kanaOrder.NEWBIE,
+};
 
 function reducer(settings, action) {
   switch (action.type) {
@@ -15,18 +27,6 @@ function reducer(settings, action) {
       throw new Error();
   }
 }
-
-const initialSettings = {
-  kanaTypes: {
-    [settingsEnum.kanaType.HIRAGANA]: true,
-    [settingsEnum.kanaType.KATAKANA]: false,
-    [settingsEnum.kanaType.WITH_MARKS]: false,
-    [settingsEnum.kanaType.COMBINED]: false,
-  },
-  kanaOrder: settingsEnum.kanaOrder.NEWBIE,
-  kanaNewCount: 5,
-  showCorrectAnswerDuration: 1000,
-};
 
 function SettingsProvider(props) {
   const [settings, dispatch] = useReducer(reducer, initialSettings);
