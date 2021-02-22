@@ -1,23 +1,27 @@
-import React from "react";
+import React from 'react';
+import { render, fireEvent } from '../../../test-utils';
+import KanaInput from '../kana-input';
 
-import { render, fireEvent } from "../../../test-utils";
+describe('<KanaInput />', () => {
+  it('initially shows placeholder', () => {
+    const { getByPlaceholderText } = render(<KanaInput />);
 
-import KanaInput from "../kana-input";
-
-describe("<KanaInput />", () => {
-  it("shows placeholder if placeholder is passed as prop", () => {
-    const { getByPlaceholderText } = render(<KanaInput placeholder="aa" />);
-
-    expect(getByPlaceholderText("aa")).toBeTruthy();
+    expect(getByPlaceholderText('???')).toBeTruthy();
   });
 
-  it("fires callback if text is added to input", () => {
+  it('displays as value what is passed by answer prop', () => {
+    const { getByDisplayValue } = render(<KanaInput answer='aa' />);
+
+    expect(getByDisplayValue('aa')).toBeTruthy();
+  });
+
+  it('fires callback if text is added to input', () => {
     const callback = jest.fn();
-    const { getByTestId } = render(<KanaInput onChange={callback} />);
-    const kanaInput = getByTestId("kana-input");
+    const { getByTestId } = render(<KanaInput onAnswerChange={callback} />);
+    const kanaInput = getByTestId('kana-input');
 
-    fireEvent.changeText(kanaInput, "a");
+    fireEvent.changeText(kanaInput, 'a');
 
-    expect(callback).toBeCalledWith("a");
+    expect(callback).toBeCalledWith('a');
   });
 });

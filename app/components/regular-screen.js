@@ -10,9 +10,9 @@ export default function RegularScreen({ style: customStyle, children }) {
   const isTablet = useDetectTablet();
 
   return (
-    <View testID='regular-screen' style={styles.root}>
+    <View style={styles.root}>
       <StatusBar translucent />
-      <View style={[styles.container, isTablet && styles.tablet, customStyle]}>
+      <View testID='regular-screen-container' style={[styles.container, isTablet && styles.tablet, customStyle]}>
         {children}
       </View>
     </View>

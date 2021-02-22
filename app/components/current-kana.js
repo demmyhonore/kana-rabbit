@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
 });
 
 CurrentKana.propTypes = {
-  kana: PropTypes.string,
+  kana: PropTypes.string.isRequired,
   isCombined: PropTypes.bool,
 };
