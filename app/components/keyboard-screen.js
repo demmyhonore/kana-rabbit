@@ -11,12 +11,11 @@ export default function KeyboardScreen({ style: customStyle, children }) {
 
   return (
     <KeyboardAvoidingView
-      testID='keyboard-screen'
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.root}
     >
       <StatusBar translucent />
-      <View style={[styles.container, isTablet && styles.tablet, customStyle]}>
+      <View testID='keyboard-screen-container' style={[styles.container, isTablet && styles.tablet, customStyle]}>
         {children}
       </View>
     </KeyboardAvoidingView>

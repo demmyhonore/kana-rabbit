@@ -4,13 +4,13 @@ import { View, TouchableHighlight, StyleSheet } from 'react-native';
 
 import defaultStyles from '../config/styles';
 import { useDetectTablet } from '../hooks/use-detect-tablet';
-import Text from '../components/text';
 
 export default function Option({ onPress, isSelected, children }) {
   const isTablet = useDetectTablet();
 
   return (
     <TouchableHighlight
+      testID='option'
       style={[
         styles.root,
         isTablet && styles.tablet,

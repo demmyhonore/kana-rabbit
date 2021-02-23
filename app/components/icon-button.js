@@ -6,7 +6,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import defaultStyles from '../config/styles';
 import { useDetectTablet } from '../hooks/use-detect-tablet';
 
-export default function IconButton({ style: customStyle, name, onPress }) {
+export default function IconButton({
+  style: customStyle,
+  name,
+  onPress,
+  ...rest
+}) {
   const isTablet = useDetectTablet();
 
   return (
@@ -16,9 +21,11 @@ export default function IconButton({ style: customStyle, name, onPress }) {
       underlayColor={defaultStyles.colors.chiffon}
     >
       <MaterialCommunityIcons
+        testID='icon-button'
         name={name}
         size={isTablet ? 45 : 30}
         color={defaultStyles.colors.white}
+        {...rest}
       />
     </TouchableHighlight>
   );
@@ -27,7 +34,7 @@ export default function IconButton({ style: customStyle, name, onPress }) {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: defaultStyles.colors.paleOrange,
-    padding: defaultStyles.spacing.['s-1'],
+    padding: defaultStyles.spacing['s-1'],
     borderRadius: 50,
   },
   rootTablet: {

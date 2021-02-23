@@ -15,6 +15,7 @@ export default function Action({
 
   return (
     <TouchableHighlight
+      testID='action'
       style={[
         styles.root,
         isTablet && styles.rootTablet,

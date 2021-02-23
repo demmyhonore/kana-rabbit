@@ -16,8 +16,10 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
     <RegularScreen>
       <Comment text='You are good!' />
       <Image
+        testID='image'
         style={[styles.image, isTablet && styles.imageTablet]}
         source={require('../../assets/snow.jpg')}
+        alt='Demmy & Tomo in the snow'
       />
       <Text
         text='Demmy & Tomo in the snow ask: "Can we make kana learning more fun?"'
@@ -25,11 +27,12 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
       />
       <View style={styles.actions}>
         <IconButton
+          testID='email-icon'
           style={styles.iconMail}
           name='email'
           onPress={onMailPress}
         />
-        <IconButton name='restart' onPress={onRestartPress} />
+        <IconButton testID='restart-icon' name='restart' onPress={onRestartPress} />
       </View>
     </RegularScreen>
   );

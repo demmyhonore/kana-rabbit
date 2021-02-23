@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1614031111149" clover="3.2.0">
-  <project timestamp="1614031111149" name="All files">
-    <metrics statements="120" coveredstatements="83" conditionals="80" coveredconditionals="48" methods="33" coveredmethods="16" elements="233" coveredelements="147" complexity="0" loc="120" ncloc="120" packages="3" files="17" classes="17"/>
+<coverage generated="1614117000219" clover="3.2.0">
+  <project timestamp="1614117000219" name="All files">
+    <metrics statements="120" coveredstatements="94" conditionals="80" coveredconditionals="75" methods="33" coveredmethods="20" elements="233" coveredelements="189" complexity="0" loc="120" ncloc="120" packages="3" files="17" classes="17"/>
     <package name="components">
-      <metrics statements="41" coveredstatements="32" conditionals="46" coveredconditionals="20" methods="11" coveredmethods="8"/>
+      <metrics statements="41" coveredstatements="41" conditionals="46" coveredconditionals="45" methods="11" coveredmethods="11"/>
       <file name="action.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/action.js">
-        <metrics statements="4" coveredstatements="4" conditionals="8" coveredconditionals="4" methods="1" coveredmethods="1"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="8" coveredconditionals="8" methods="1" coveredmethods="1"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="16" count="8" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
       </file>
       <file name="comment.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/comment.js">
-        <metrics statements="4" coveredstatements="4" conditionals="9" coveredconditionals="6" methods="1" coveredmethods="1"/>
-        <line num="9" count="26" type="stmt"/>
-        <line num="11" count="26" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="9" coveredconditionals="9" methods="1" coveredmethods="1"/>
+        <line num="9" count="34" type="stmt"/>
+        <line num="11" count="34" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
       </file>
       <file name="current-kana.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/current-kana.js">
-        <metrics statements="4" coveredstatements="4" conditionals="7" coveredconditionals="3" methods="1" coveredmethods="1"/>
-        <line num="10" count="23" type="stmt"/>
-        <line num="12" count="23" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+        <line num="10" count="26" type="stmt"/>
+        <line num="12" count="26" type="stmt"/>
         <line num="25" count="2" type="stmt"/>
         <line num="42" count="2" type="stmt"/>
       </file>
       <file name="icon-button.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/icon-button.js">
-        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="10" count="22" type="stmt"/>
-        <line num="12" count="22" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="15" count="31" type="stmt"/>
+        <line num="17" count="31" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
       </file>
       <file name="kana-input.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/kana-input.js">
-        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="15" count="25" type="stmt"/>
-        <line num="17" count="25" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="15" count="26" type="stmt"/>
+        <line num="17" count="26" type="stmt"/>
         <line num="34" count="2" type="stmt"/>
         <line num="53" count="2" type="stmt"/>
       </file>
       <file name="kana-text.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/kana-text.js">
-        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="9" count="23" type="stmt"/>
-        <line num="11" count="23" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="9" count="26" type="stmt"/>
+        <line num="11" count="26" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
       </file>
       <file name="keyboard-screen.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/keyboard-screen.js">
-        <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
-        <line num="10" count="22" type="stmt"/>
-        <line num="12" count="22" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="10" count="24" type="stmt"/>
+        <line num="12" count="24" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
       </file>
       <file name="option-text.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/option-text.js">
-        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
       </file>
       <file name="option.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/option.js">
-        <metrics statements="4" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
       </file>
       <file name="regular-screen.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/regular-screen.js">
-        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="22" count="2" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="10" count="7" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="22" count="3" type="stmt"/>
       </file>
       <file name="text.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/text.js">
-        <metrics statements="4" coveredstatements="2" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="25" count="5" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
       </file>
     </package>
     <package name="components.guess-kana">
-      <metrics statements="13" coveredstatements="11" conditionals="8" coveredconditionals="5" methods="3" coveredmethods="2"/>
+      <metrics statements="13" coveredstatements="13" conditionals="8" coveredconditionals="7" methods="3" coveredmethods="3"/>
       <file name="answer-screen.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/guess-kana/answer-screen.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="11" count="2" type="stmt"/>
@@ -88,11 +88,11 @@
         <line num="34" count="1" type="stmt"/>
       </file>
       <file name="end-screen.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/guess-kana/end-screen.js">
-        <metrics statements="4" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="60" count="1" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
       </file>
       <file name="input-screen.js" path="/Users/demmyhonore/Code/projects/kana-rabbit/app/components/guess-kana/input-screen.js">
         <metrics statements="6" coveredstatements="6" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
