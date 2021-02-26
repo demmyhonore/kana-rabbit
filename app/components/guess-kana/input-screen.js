@@ -28,11 +28,9 @@ function GuessKanaInputScreen({
   return (
     <KeyboardScreen>
       <View style={[styles.top, isTablet && styles.topTablet]}>
-        <Comment
-          text={commentText}
-          isSmall
-        />
+        <Comment text={commentText} isSmall />
         <IconButton
+          testID='restart-icon'
           style={styles.iconRestart}
           name='restart'
           onPress={onRestartPress}

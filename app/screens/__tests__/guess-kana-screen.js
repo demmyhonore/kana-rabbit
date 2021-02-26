@@ -1,37 +1,44 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '../../../test-utils';
+import defaultStyles from '../../config/styles';
 import GuessKanaScreen from '../guess-kana-screen';
 
-describe('<GuessKanaScreen />', () => {
-  it('initially renders placeholder and first kana', () => {
-    const { getByPlaceholderText, getByText } = render(<GuessKanaScreen />);
+const kanaInputTestID = 'kana-input';
+const restartIconTestID = 'restart-icon';
 
-    expect(getByPlaceholderText('???')).toBeTruthy();
+describe('<GuessKanaScreen />', () => {
+  it('renders first kana initially', () => {
+    const { getByText } = render(<GuessKanaScreen />);
+
     expect(getByText('あ')).toBeTruthy();
   });
 
-  it('shows comment to try again on first attempt', () => {
+  it('shows try again comment and red input on first mistake', () => {
     const { getByText, getByTestId } = render(<GuessKanaScreen />);
-    const kanaInput = getByTestId('kana-input');
+    const kanaInput = getByTestId(kanaInputTestID);
 
     fireEvent.changeText(kanaInput, 'x');
-    expect(getByText(/try/i)).toBeTruthy();
+
+    expect(getByText(/try again/i)).toBeTruthy();
+    expect(kanaInput).toHaveStyle({
+      backgroundColor: defaultStyles.colors.carnationPink,
+    });
   });
 
-  it('shows comment with correct sound on second attempt', () => {
+  it('shows correct sound comment and right answer on second mistake', () => {
     const { getByText, getByTestId } = render(<GuessKanaScreen />);
-    const kanaInput = getByTestId('kana-input');
+    const kanaInput = getByTestId(kanaInputTestID);
 
     fireEvent.changeText(kanaInput, 'x');
     fireEvent.changeText(kanaInput, 'x');
 
-    expect(getByText(/correct/i)).toBeTruthy();
+    expect(getByText(/correct sound/i)).toBeTruthy();
     expect(getByText('a')).toBeTruthy();
   });
 
-  it('displays next kana on clicking continue after second attempt', () => {
+  it('shows next kana on pressing continue on second mistake', () => {
     const { getByText, getByTestId } = render(<GuessKanaScreen />);
-    const kanaInput = getByTestId('kana-input');
+    const kanaInput = getByTestId(kanaInputTestID);
 
     fireEvent.changeText(kanaInput, 'x');
     fireEvent.changeText(kanaInput, 'x');
@@ -40,20 +47,36 @@ describe('<GuessKanaScreen />', () => {
     expect(getByText('か')).toBeTruthy();
   });
 
-  it('shows comment very good on correct answer', () => {
+  it('shows very good comment and green input on correct answer', () => {
     const { getByText, getByTestId } = render(<GuessKanaScreen />);
-    const kanaInput = getByTestId('kana-input');
+    const kanaInput = getByTestId(kanaInputTestID);
 
     fireEvent.changeText(kanaInput, 'a');
 
     expect(getByText(/very good/i)).toBeTruthy();
+    expect(kanaInput).toHaveStyle({
+      backgroundColor: defaultStyles.colors.paleLimeGreen,
+    });
   });
 
-  it('gives the next kana on correct answer', async () => {
+  it('shows the next kana automatically after correct answer', async () => {
     const { getByText, getByTestId } = render(<GuessKanaScreen />);
-    const kanaInput = getByTestId('kana-input');
+    const kanaInput = getByTestId(kanaInputTestID);
 
     fireEvent.changeText(kanaInput, 'a');
+
     await waitFor(() => expect(getByText('か')).toBeTruthy());
+  });
+
+  it('calls the pop to top route when reset button is pressed', () => {
+    const popToTop = jest.fn();
+    const { getByTestId } = render(
+      <GuessKanaScreen navigation={{ popToTop }} />
+    );
+    const restartIcon = getByTestId(restartIconTestID);
+
+    fireEvent.press(restartIcon);
+
+    expect(popToTop).toHaveBeenCalledTimes(1);
   });
 });

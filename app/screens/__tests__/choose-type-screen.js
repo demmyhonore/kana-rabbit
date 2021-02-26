@@ -8,7 +8,7 @@ const optionTestID = 'option';
 const actionTestID = 'action';
 
 describe('<ChooseTypeScreen />', () => {
-  it('initially renders the hiragana option selected', () => {
+  it('has the hiragana option initially selected', () => {
     const { queryAllByTestId } = render(<ChooseTypeScreen />);
     const hiraganaOption = queryAllByTestId(optionTestID)[0];
     const katakanaOption = queryAllByTestId(optionTestID)[1];
@@ -32,7 +32,18 @@ describe('<ChooseTypeScreen />', () => {
     });
   });
 
-  it('disables the select action when no type is selected', () => {
+  it('adds the katakana selection when pressed', () => {
+    const { queryAllByTestId } = render(<ChooseTypeScreen />);
+    const katakanaOption = queryAllByTestId(optionTestID)[1];
+
+    fireEvent.press(katakanaOption);
+
+    expect(katakanaOption).toHaveStyle({
+      backgroundColor: defaultStyles.colors.chiffon,
+    });
+  });
+
+  it('disables the select button when no type is selected', () => {
     const navigate = jest.fn();
     const { queryAllByTestId, getByTestId } = render(
       <ChooseTypeScreen navigation={{ navigate }} />
@@ -48,7 +59,7 @@ describe('<ChooseTypeScreen />', () => {
     });
   });
 
-  it('calls the correct route when the select action is pressed', () => {
+  it('calls the choose order route when the select button is pressed', () => {
     const navigate = jest.fn();
     const { getByTestId } = render(
       <ChooseTypeScreen navigation={{ navigate }} />
