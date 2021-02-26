@@ -30,6 +30,7 @@ export default function GuessKanaScreen({ navigation }) {
     Linking.openURL('mailto:demmyhonore@gmail.com?subject=Fun idea for kanana');
 
   useEffect(() => {
+    let mounted = true;
     const hasAnswer = answer.length === currentKana?.sound?.length;
     const isCorrect = answer === currentKana?.sound;
 
@@ -37,7 +38,7 @@ export default function GuessKanaScreen({ navigation }) {
       if (isCorrect) {
         setAnswerStatus(answerEnum.status.SHOW_CORRECT_ANSWER);
         setTimeout(() => {
-          setAnswerStatus(answerEnum.status.CORRECT);
+          mounted && setAnswerStatus(answerEnum.status.CORRECT);
         }, settings.showCorrectAnswerDuration);
       }
 
@@ -49,6 +50,10 @@ export default function GuessKanaScreen({ navigation }) {
       if (!isCorrect && answerStatus === answerEnum.status.FIRST_ATTEMPT) {
         setAnswerStatus(answerEnum.status.SECOND_ATTEMPT);
       }
+    }
+
+    return () => {
+      mounted = false;
     }
   }, [answer]);
 
