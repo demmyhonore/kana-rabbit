@@ -18,7 +18,7 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
       <Image
         testID='image'
         style={[styles.image, isTablet && styles.imageTablet]}
-        source={require('../../assets/snow.jpg')}
+        source={require('../../assets/images/snow.jpg')}
         alt='Demmy & Tomo in the snow'
       />
       <Text
