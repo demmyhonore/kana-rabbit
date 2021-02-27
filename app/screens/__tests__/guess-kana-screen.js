@@ -21,7 +21,7 @@ describe('<GuessKanaScreen />', () => {
 
     await waitFor(() => expect(getByText(/try again/i)).toBeTruthy());
     expect(kanaInput).toHaveStyle({
-      backgroundColor: defaultStyles.colors.carnationPink,
+      backgroundColor: defaultStyles.colors.sunDown,
     });
   });
 

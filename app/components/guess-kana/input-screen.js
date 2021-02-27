@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: defaultStyles.colors.paleLimeGreen,
   },
   inputWrong: {
-    backgroundColor: defaultStyles.colors.carnationPink,
+    backgroundColor: defaultStyles.colors.sunDown,
   },
 });
 
