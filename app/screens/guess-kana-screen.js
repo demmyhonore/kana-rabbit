@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as Linking from 'expo-linking';
 
 import * as kanaEnum from '../enum/kana';
 import * as answerEnum from '../enum/answer';
 import { getCurrentKana } from '../utils/kana';
+import { debounce } from '../utils/general';
 import { useSettings } from '../context/settings';
 import { useKana } from '../context/kana';
 import { useAnswer } from '../hooks/use-answer';
@@ -18,60 +19,80 @@ export default function GuessKanaScreen({ navigation }) {
   const [answerStatus, setAnswerStatus] = useState(answerEnum.status.PENDING);
   const currentKana = getCurrentKana(kana);
 
-  const dispatchAndResetAnswer = action => {
-    dispatch(action);
-    clearAnswer();
-    setAnswerStatus(answerEnum.status.PENDING);
-  };
-
   const handleRestartPress = () => navigation.popToTop();
 
   const handleEmailPress = () =>
     Linking.openURL('mailto:demmyhonore@gmail.com?subject=Fun idea for kanana');
 
+  const clearAnswerAndSetPendingStatus = () => {
+    clearAnswer();
+    setAnswerStatus(answerEnum.status.PENDING);
+  };
+
+  const setCorrectStatusWithDelay = () => {
+    setTimeout(() => {
+      setAnswerStatus(answerEnum.status.CORRECT);
+    }, settings.showCorrectAnswerDuration);
+  };
+
   useEffect(() => {
-    let mounted = true;
+    let isMounted = true;
     const hasAnswer = answer.length === currentKana?.sound?.length;
-    const isCorrect = answer === currentKana?.sound;
-
-    if (hasAnswer) {
-      if (isCorrect) {
-        setAnswerStatus(answerEnum.status.SHOW_CORRECT_ANSWER);
-        setTimeout(() => {
-          mounted && setAnswerStatus(answerEnum.status.CORRECT);
-        }, settings.showCorrectAnswerDuration);
-      }
-
-      if (!isCorrect && answerStatus === answerEnum.status.PENDING) {
-        setAnswerStatus(answerEnum.status.FIRST_ATTEMPT);
-        clearAnswer();
-      }
-
-      if (!isCorrect && answerStatus === answerEnum.status.FIRST_ATTEMPT) {
-        setAnswerStatus(answerEnum.status.SECOND_ATTEMPT);
-      }
-    }
+    const isCorrectAnswer = answer === currentKana?.sound;
+    handleAnswer(hasAnswer, answerStatus, isCorrectAnswer, isMounted);
 
     return () => {
-      mounted = false;
-    }
+      isMounted = false;
+    };
   }, [answer]);
 
+  const handleAnswer = useCallback(
+    debounce((hasAnswer, answerStatus, isCorrectAnswer, isMounted) => {
+      const isSubmitted =
+        answerStatus === answerEnum.status.CORRECT_ANSWER_FEEDBACK;
+      const isPendingStatus = answerStatus === answerEnum.status.PENDING;
+      const isFirstAttemptStatus =
+        answerStatus === answerEnum.status.FIRST_ATTEMPT;
+
+      if (hasAnswer) {
+        if (isCorrectAnswer && !isSubmitted) {
+          setAnswerStatus(answerEnum.status.CORRECT_ANSWER_FEEDBACK);
+          isMounted && setCorrectStatusWithDelay();
+        }
+
+        if (!isCorrectAnswer && isPendingStatus) {
+          setAnswerStatus(answerEnum.status.FIRST_ATTEMPT);
+          clearAnswer();
+        }
+
+        if (!isCorrectAnswer && isFirstAttemptStatus) {
+          setAnswerStatus(answerEnum.status.SECOND_ATTEMPT);
+        }
+      }
+    }, 750),
+    []
+  );
+
   useEffect(() => {
-    if (answerStatus === answerEnum.status.CORRECT) {
+    const isCorrectStatus = answerStatus === answerEnum.status.CORRECT;
+    const isWrongStatus = answerStatus === answerEnum.status.WRONG;
+
+    if (isCorrectStatus) {
       dispatch({ type: kanaEnum.actionTypes.PROMOTE_CURRENT });
-      dispatchAndResetAnswer({
+      dispatch({
         type: kanaEnum.actionTypes.SET_CURRENT,
         payload: { kanaNewCount: settings.kanaNewCount },
       });
+      clearAnswerAndSetPendingStatus();
     }
 
-    if (answerStatus === answerEnum.status.WRONG) {
+    if (isWrongStatus) {
       dispatch({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
-      dispatchAndResetAnswer({
+      dispatch({
         type: kanaEnum.actionTypes.SET_CURRENT,
         payload: { kanaNewCount: settings.kanaNewCount },
       });
+      clearAnswerAndSetPendingStatus();
     }
   }, [answerStatus]);
 
@@ -84,14 +105,13 @@ export default function GuessKanaScreen({ navigation }) {
     );
   }
 
-  if (answerStatus === answerEnum.status.SHOW_CORRECT_ANSWER) {
+  if (answerStatus === answerEnum.status.CORRECT_ANSWER_FEEDBACK) {
     return (
       <InputScreen
         currentKana={currentKana}
         answer={answer}
         commentText='Very good!'
         answerStatus={answerStatus}
-        onAnswerChange={onAnswerChange}
         onRestartPress={handleRestartPress}
       />
     );

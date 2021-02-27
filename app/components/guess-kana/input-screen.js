@@ -23,7 +23,7 @@ function GuessKanaInputScreen({
   const isTablet = useDetectTablet();
   const isFirstAttempt = answerStatus === answerEnum.status.FIRST_ATTEMPT;
   const isCorrectAnswer =
-    answerStatus === answerEnum.status.SHOW_CORRECT_ANSWER;
+    answerStatus === answerEnum.status.CORRECT_ANSWER_FEEDBACK;
 
   return (
     <KeyboardScreen>
