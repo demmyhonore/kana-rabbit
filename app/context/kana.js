@@ -27,7 +27,7 @@ const setInitialKana = (kana, settings) => {
       ? selectedKana
       : shuffleKana(selectedKana);
 
-  return addNewAndSetCurrentKana(selectedAndSortedKana, settings.kanaNewCount);
+  return addNewAndSetCurrentKana(selectedAndSortedKana, settings.kanaAddNewAmount);
 };
 
 function reducer(kana, action) {
@@ -44,7 +44,7 @@ function reducer(kana, action) {
       if (kanaHasStatus(kana, kanaEnum.status.CORRECT))
         return setCurrentKana(kana, kanaEnum.status.CORRECT);
       if (kanaHasStatus(kana, kanaEnum.status.IDLE)) {
-        return addNewAndSetCurrentKana(kana, action.payload.kanaNewCount);
+        return addNewAndSetCurrentKana(kana, action.payload.kanaAddNewAmount);
       } else {
         return removeCurrentKana(kana);
       }

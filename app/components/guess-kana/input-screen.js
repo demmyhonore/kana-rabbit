@@ -19,6 +19,8 @@ function GuessKanaInputScreen({
   answerStatus,
   onAnswerChange,
   onRestartPress,
+  onSoundTogglePress,
+  soundOn,
 }) {
   const isTablet = useDetectTablet();
   const isFirstAttempt = answerStatus === answerEnum.status.FIRST_ATTEMPT;
@@ -29,12 +31,19 @@ function GuessKanaInputScreen({
     <KeyboardScreen>
       <View style={[styles.top, isTablet && styles.topTablet]}>
         <Comment text={commentText} isSmall />
-        <IconButton
-          testID='restart-icon'
-          style={styles.iconRestart}
-          name='restart'
-          onPress={onRestartPress}
-        />
+        <View style={styles.topActions}>
+          <IconButton
+            testID='restart-icon'
+            style={styles.iconRestart}
+            name='restart'
+            onPress={onRestartPress}
+          />
+          <IconButton
+            testID='volume-icon'
+            name={soundOn ? 'volume-medium' : 'volume-off'}
+            onPress={onSoundTogglePress}
+          />
+        </View>
       </View>
       <View>
         <CurrentKana
@@ -64,9 +73,12 @@ const styles = StyleSheet.create({
   topTablet: {
     paddingRight: 75,
   },
-  iconRestart: {
+  topActions: {
     position: 'absolute',
     right: 0,
+  },
+  iconRestart: {
+    marginBottom: defaultStyles.spacing.s2,
   },
   inputCorrect: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,
@@ -85,4 +97,6 @@ GuessKanaInputScreen.propTypes = {
   answerStatus: PropTypes.string,
   onAnswerChange: PropTypes.func,
   onRestartPress: PropTypes.func,
+  onSoundTogglePress: PropTypes.func,
+  soundOn: PropTypes.bool,
 };

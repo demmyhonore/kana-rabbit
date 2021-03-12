@@ -4,6 +4,7 @@ import { Audio } from 'expo-av';
 
 import * as kanaEnum from '../enum/kana';
 import * as answerEnum from '../enum/answer';
+import * as settingsEnum from '../enum/settings';
 import { getCurrentKana } from '../utils/kana';
 import { debounce } from '../utils/general';
 import { useSettings } from '../context/settings';
@@ -14,13 +15,13 @@ import AnswerScreen from '../components/guess-kana/answer-screen';
 import EndScreen from '../components/guess-kana/end-screen';
 
 export default function GuessKanaScreen({ navigation }) {
-  const [settings] = useSettings();
-  const [kana, dispatch] = useKana();
+  const [settings, dispatchSettings] = useSettings();
+  const [kana, dispatchKana] = useKana();
   const [sound, setSound] = useState();
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
   const [answerStatus, setAnswerStatus] = useState(answerEnum.status.PENDING);
   const currentKana = getCurrentKana(kana);
-  const currentKanaSound = currentKana?.audio;
+  const currentKanaSound = settings.kanaSoundOn && currentKana?.audio;
 
   const playSound = async currentSound => {
     if (!currentSound) return null;
@@ -41,6 +42,12 @@ export default function GuessKanaScreen({ navigation }) {
 
   const handleRestartPress = () => navigation.popToTop();
 
+  const handleSoundTogglePress = () => {
+    settings.kanaSoundOn
+      ? dispatchSettings({ type: settingsEnum.actionTypes.SET_SOUND_OFF })
+      : dispatchSettings({ type: settingsEnum.actionTypes.SET_SOUND_ON });
+  };
+
   const handleEmailPress = () =>
     Linking.openURL(
       'mailto:kananana@hellosearch.nl?subject=Make kananana more fun by:'
@@ -54,7 +61,7 @@ export default function GuessKanaScreen({ navigation }) {
   const setCorrectStatusWithDelay = () => {
     setTimeout(() => {
       setAnswerStatus(answerEnum.status.CORRECT);
-    }, settings.showCorrectAnswerDuration);
+    }, settings.kanaFeedbackDuration);
   };
 
   useEffect(() => {
@@ -116,19 +123,19 @@ export default function GuessKanaScreen({ navigation }) {
     const isWrongStatus = answerStatus === answerEnum.status.WRONG;
 
     if (isCorrectStatus) {
-      dispatch({ type: kanaEnum.actionTypes.PROMOTE_CURRENT });
-      dispatch({
+      dispatchKana({ type: kanaEnum.actionTypes.PROMOTE_CURRENT });
+      dispatchKana({
         type: kanaEnum.actionTypes.SET_CURRENT,
-        payload: { kanaNewCount: settings.kanaNewCount },
+        payload: { kanaAddNewAmount: settings.kanaAddNewAmount },
       });
       clearAnswerAndSetPendingStatus();
     }
 
     if (isWrongStatus) {
-      dispatch({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
-      dispatch({
+      dispatchKana({ type: kanaEnum.actionTypes.DEMOTE_CURRENT });
+      dispatchKana({
         type: kanaEnum.actionTypes.SET_CURRENT,
-        payload: { kanaNewCount: settings.kanaNewCount },
+        payload: { kanaAddNewAmount: settings.kanaAddNewAmount },
       });
       clearAnswerAndSetPendingStatus();
     }
@@ -151,6 +158,8 @@ export default function GuessKanaScreen({ navigation }) {
         commentText='Very good!'
         answerStatus={answerStatus}
         onRestartPress={handleRestartPress}
+        onSoundTogglePress={handleSoundTogglePress}
+        soundOn={settings.kanaSoundOn}
       />
     );
   }
@@ -164,6 +173,8 @@ export default function GuessKanaScreen({ navigation }) {
         answerStatus={answerStatus}
         onAnswerChange={onAnswerChange}
         onRestartPress={handleRestartPress}
+        onSoundTogglePress={handleSoundTogglePress}
+        soundOn={settings.kanaSoundOn}
       />
     );
   }
@@ -185,6 +196,8 @@ export default function GuessKanaScreen({ navigation }) {
       commentText='Yes.. ?'
       onAnswerChange={onAnswerChange}
       onRestartPress={handleRestartPress}
+      onSoundTogglePress={handleSoundTogglePress}
+      soundOn={settings.kanaSoundOn}
     />
   );
 }
