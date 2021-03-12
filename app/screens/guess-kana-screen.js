@@ -21,7 +21,7 @@ export default function GuessKanaScreen({ navigation }) {
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
   const [answerStatus, setAnswerStatus] = useState(answerEnum.status.PENDING);
   const currentKana = getCurrentKana(kana);
-  const currentKanaSound = settings.kanaSoundOn && currentKana?.audio;
+  const currentKanaSound = currentKana?.audio;
 
   const playSound = async currentSound => {
     if (!currentSound) return null;
@@ -72,7 +72,7 @@ export default function GuessKanaScreen({ navigation }) {
       hasAnswer,
       answerStatus,
       isCorrectAnswer,
-      currentKanaSound,
+      settings.kanaSoundOn && currentKanaSound,
       isMounted
     );
 
@@ -182,7 +182,8 @@ export default function GuessKanaScreen({ navigation }) {
   if (answerStatus === answerEnum.status.SECOND_ATTEMPT) {
     return (
       <AnswerScreen
-        onPress={() => setAnswerStatus(answerEnum.status.WRONG)}
+        onPlaySoundPress={() => playSound(currentKanaSound)}
+        onContinuePress={() => setAnswerStatus(answerEnum.status.WRONG)}
         currentKana={currentKana}
         commentText='Oh no.. correct sound is: '
       />
