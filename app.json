@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "kananana",
+    "name": "Kananana",
     "slug": "kananana",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./app/assets/images/icon.png",
     "splash": {
@@ -14,16 +14,21 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
-      "**/*"
+      "assets/images/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "nl.hellosearch.kananana",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/images/adaptive-icon.png",
         "backgroundColor": "#CDB4DB"
-      }
+      },
+      "package": "nl.hellosearch.kananana",
+      "versionName": "1.0.1",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/images/favicon.png"
