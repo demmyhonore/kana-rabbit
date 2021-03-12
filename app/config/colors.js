@@ -1,5 +1,5 @@
 export default {
-  black: "#000",
+  black: "#121212",
   blue: "#636E72",
   sunDown: "#FFADAD",
   chiffon: "#FDFFB6",
