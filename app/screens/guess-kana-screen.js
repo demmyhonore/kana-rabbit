@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import * as Linking from 'expo-linking';
+import { Audio } from 'expo-av';
 
 import * as kanaEnum from '../enum/kana';
 import * as answerEnum from '../enum/answer';
@@ -15,9 +16,28 @@ import EndScreen from '../components/guess-kana/end-screen';
 export default function GuessKanaScreen({ navigation }) {
   const [settings] = useSettings();
   const [kana, dispatch] = useKana();
+  const [sound, setSound] = useState();
   const [answer, onAnswerChange, clearAnswer] = useAnswer();
   const [answerStatus, setAnswerStatus] = useState(answerEnum.status.PENDING);
   const currentKana = getCurrentKana(kana);
+  const currentKanaSound = currentKana?.audio;
+
+  const playSound = async currentSound => {
+    if (!currentSound) return null;
+
+    const { sound } = await Audio.Sound.createAsync(currentSound);
+    setSound(sound);
+
+    await sound.playAsync();
+  };
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
 
   const handleRestartPress = () => navigation.popToTop();
 
@@ -41,7 +61,13 @@ export default function GuessKanaScreen({ navigation }) {
     let isMounted = true;
     const hasAnswer = answer.length === currentKana?.sound?.length;
     const isCorrectAnswer = answer === currentKana?.sound;
-    handleAnswer(hasAnswer, answerStatus, isCorrectAnswer, isMounted);
+    handleAnswer(
+      hasAnswer,
+      answerStatus,
+      isCorrectAnswer,
+      currentKanaSound,
+      isMounted
+    );
 
     return () => {
       isMounted = false;
@@ -49,29 +75,39 @@ export default function GuessKanaScreen({ navigation }) {
   }, [answer]);
 
   const handleAnswer = useCallback(
-    debounce((hasAnswer, answerStatus, isCorrectAnswer, isMounted) => {
-      const isSubmitted =
-        answerStatus === answerEnum.status.CORRECT_ANSWER_FEEDBACK;
-      const isPendingStatus = answerStatus === answerEnum.status.PENDING;
-      const isFirstAttemptStatus =
-        answerStatus === answerEnum.status.FIRST_ATTEMPT;
+    debounce(
+      (
+        hasAnswer,
+        answerStatus,
+        isCorrectAnswer,
+        currentKanaSound,
+        isMounted
+      ) => {
+        const isSubmitted =
+          answerStatus === answerEnum.status.CORRECT_ANSWER_FEEDBACK;
+        const isPendingStatus = answerStatus === answerEnum.status.PENDING;
+        const isFirstAttemptStatus =
+          answerStatus === answerEnum.status.FIRST_ATTEMPT;
 
-      if (hasAnswer) {
-        if (isCorrectAnswer && !isSubmitted) {
-          setAnswerStatus(answerEnum.status.CORRECT_ANSWER_FEEDBACK);
-          isMounted && setCorrectStatusWithDelay();
-        }
+        if (hasAnswer) {
+          if (isCorrectAnswer && !isSubmitted) {
+            setAnswerStatus(answerEnum.status.CORRECT_ANSWER_FEEDBACK);
+            playSound(currentKanaSound);
+            isMounted && setCorrectStatusWithDelay();
+          }
 
-        if (!isCorrectAnswer && isPendingStatus) {
-          setAnswerStatus(answerEnum.status.FIRST_ATTEMPT);
-          clearAnswer();
-        }
+          if (!isCorrectAnswer && isPendingStatus) {
+            setAnswerStatus(answerEnum.status.FIRST_ATTEMPT);
+            clearAnswer();
+          }
 
-        if (!isCorrectAnswer && isFirstAttemptStatus) {
-          setAnswerStatus(answerEnum.status.SECOND_ATTEMPT);
+          if (!isCorrectAnswer && isFirstAttemptStatus) {
+            setAnswerStatus(answerEnum.status.SECOND_ATTEMPT);
+          }
         }
-      }
-    }, 750),
+      },
+      750
+    ),
     []
   );
 

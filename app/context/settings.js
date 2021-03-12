@@ -13,7 +13,7 @@ const initialSettings = {
     [settingsEnum.kanaType.COMBINED]: false,
   },
   kanaNewCount: 5,
-  showCorrectAnswerDuration: 1000,
+  showCorrectAnswerDuration: 1500,
   kanaOrder: settingsEnum.kanaOrder.NEWBIE,
 };
 
