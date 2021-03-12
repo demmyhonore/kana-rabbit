@@ -22,7 +22,9 @@ export default function GuessKanaScreen({ navigation }) {
   const handleRestartPress = () => navigation.popToTop();
 
   const handleEmailPress = () =>
-    Linking.openURL('mailto:kananana@hellosearch.nl?subject=Make kana learning more fun by:');
+    Linking.openURL(
+      'mailto:kananana@hellosearch.nl?subject=Make kananana more fun by:'
+    );
 
   const clearAnswerAndSetPendingStatus = () => {
     clearAnswer();

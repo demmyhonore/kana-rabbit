@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 function useAnswer() {
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState('');
 
-  const clearAnswer = () => setAnswer("");
+  const onAnswerChange = answer => {
+    const lowercaseAnswer = answer.toLowerCase();
+    return setAnswer(lowercaseAnswer);
+  };
 
-  return [answer, setAnswer, clearAnswer];
+  const clearAnswer = () => setAnswer('');
+
+  return [answer, onAnswerChange, clearAnswer];
 }
 
 export { useAnswer };
