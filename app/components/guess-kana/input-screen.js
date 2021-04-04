@@ -39,7 +39,7 @@ function GuessKanaInputScreen({
             onPress={onRestartPress}
           />
           <IconButton
-            testID='volume-icon'
+            testID={soundOn ? 'volume-icon' : 'volume-off-icon'}
             name={soundOn ? 'volume-medium' : 'volume-off'}
             onPress={onSoundTogglePress}
           />
