@@ -1,10 +1,13 @@
 import React from 'react';
-import { render, fireEvent, waitFor, act } from '../../../test-utils';
+import { render, fireEvent, waitFor } from '../../../test-utils';
 import defaultStyles from '../../config/styles';
 import GuessKanaScreen from '../guess-kana-screen';
+import * as kanaUtils from '../../utils/kana';
 
 const kanaInputTestID = 'kana-input';
 const restartIconTestID = 'restart-icon';
+const volumeIconTestID = 'volume-icon';
+const volumeOffIconTestID = 'volume-off-icon';
 
 describe('<GuessKanaScreen />', () => {
   it('renders first kana initially', () => {
@@ -44,10 +47,9 @@ describe('<GuessKanaScreen />', () => {
     await waitFor(() => expect(getByText(/try again/i)).toBeTruthy());
     fireEvent.changeText(kanaInput, 'x');
     await waitFor(() => expect(getByText(/correct sound/i)).toBeTruthy());
-
     fireEvent.press(getByText(/continue/i));
 
-    expect(getByText('か')).toBeTruthy();
+    expect(getByText('い')).toBeTruthy();
   });
 
   it('shows very good comment and green input on correct answer', async () => {
@@ -68,7 +70,7 @@ describe('<GuessKanaScreen />', () => {
 
     fireEvent.changeText(kanaInput, 'a');
 
-    await waitFor(() => expect(getByText('か')).toBeTruthy());
+    await waitFor(() => expect(getByText('い')).toBeTruthy());
   });
 
   it('calls the pop to top route when reset button is pressed', () => {
@@ -81,5 +83,31 @@ describe('<GuessKanaScreen />', () => {
     fireEvent.press(restartIcon);
 
     expect(popToTop).toHaveBeenCalledTimes(1);
+  });
+
+  it('toggles sound when volume icon is pressed', () => {
+    const { getByTestId } = render(<GuessKanaScreen />);
+    const volumeIcon = getByTestId(volumeIconTestID);
+
+    fireEvent.press(volumeIcon);
+
+    expect(getByTestId(volumeOffIconTestID)).toBeTruthy();
+  });
+
+  it('toggles sound when volume icon is pressed', () => {
+    const { getByTestId } = render(<GuessKanaScreen />);
+    const volumeIcon = getByTestId(volumeIconTestID);
+
+    fireEvent.press(volumeIcon);
+
+    expect(getByTestId(volumeOffIconTestID)).toBeTruthy();
+  });
+
+  it('shows end screen when there is no current kana', () => {
+    kanaUtils.getCurrentKana = jest.fn().mockReturnValue(null);
+    const { getByText, debug } = render(<GuessKanaScreen />);
+
+    debug();
+    expect(getByText(/snow/i)).toBeTruthy();
   });
 });

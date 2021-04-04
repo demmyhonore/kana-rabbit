@@ -24,7 +24,7 @@ export default function IconButton({
         testID='icon-button'
         name={name}
         size={isTablet ? 45 : 30}
-        color={defaultStyles.colors.white}
+        color={defaultStyles.colors.blue}
         {...rest}
       />
     </TouchableHighlight>

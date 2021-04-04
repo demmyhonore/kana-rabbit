@@ -12,9 +12,10 @@ const initialSettings = {
     [settingsEnum.kanaType.WITH_MARKS]: false,
     [settingsEnum.kanaType.COMBINED]: false,
   },
-  kanaNewCount: 5,
-  showCorrectAnswerDuration: 1000,
   kanaOrder: settingsEnum.kanaOrder.NEWBIE,
+  kanaAddNewAmount: 5,
+  kanaFeedbackDuration: 2500,
+  kanaSoundOn: true,
 };
 
 function reducer(settings, action) {
@@ -23,6 +24,10 @@ function reducer(settings, action) {
       return { ...settings, kanaTypes: action.payload };
     case settingsEnum.actionTypes.SET_KANA_ORDER:
       return { ...settings, kanaOrder: action.payload };
+    case settingsEnum.actionTypes.SET_SOUND_OFF:
+      return { ...settings, kanaSoundOn: false };
+    case settingsEnum.actionTypes.SET_SOUND_ON:
+      return { ...settings, kanaSoundOn: true };
     default:
       throw new Error();
   }
