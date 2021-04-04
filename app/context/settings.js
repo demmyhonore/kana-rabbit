@@ -14,7 +14,7 @@ const initialSettings = {
   },
   kanaOrder: settingsEnum.kanaOrder.NEWBIE,
   kanaAddNewAmount: 5,
-  kanaFeedbackDuration: 1500,
+  kanaFeedbackDuration: 2500,
   kanaSoundOn: true,
 };
 
