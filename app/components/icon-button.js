@@ -10,21 +10,22 @@ export default function IconButton({
   style: customStyle,
   name,
   onPress,
+  isSmall,
   ...rest
 }) {
   const isTablet = useDetectTablet();
 
   return (
     <TouchableHighlight
-      style={[styles.root, isTablet && styles.rootTablet, customStyle]}
+      style={[styles.root, isTablet && styles.tablet, isSmall && styles.small, isSmall && isTablet && styles.smallTablet, customStyle]}
       onPress={onPress}
       underlayColor={defaultStyles.colors.chiffon}
     >
       <MaterialCommunityIcons
         testID='icon-button'
         name={name}
-        size={isTablet ? 45 : 30}
-        color={defaultStyles.colors.blue}
+        size={isTablet ? 40 : 20}
+        color={defaultStyles.colors.grayishViolet}
         {...rest}
       />
     </TouchableHighlight>
@@ -37,8 +38,11 @@ const styles = StyleSheet.create({
     padding: defaultStyles.spacing['s-1'],
     borderRadius: 50,
   },
-  rootTablet: {
-    padding: defaultStyles.spacing.s1,
+  tablet: {
+    padding: defaultStyles.spacing.s0,
+  },
+  small: {
+
   },
 });
 

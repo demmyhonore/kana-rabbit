@@ -12,12 +12,12 @@ export default function Comment({ text, isSmall, style: customStyle }) {
     <Text
       style={[
         styles.root,
-        isSmall && styles.small,
         isTablet && styles.tablet,
-        isTablet && isSmall && styles.smallTablet,
+        isSmall && styles.small,
+        isSmall && isTablet && styles.smallTablet,
         customStyle,
       ]}
-      numberOfLines={isSmall ? 2 : undefined}
+      numberOfLines={isSmall ? 1 : undefined}
     >
       {text}
     </Text>
@@ -27,22 +27,22 @@ export default function Comment({ text, isSmall, style: customStyle }) {
 const styles = StyleSheet.create({
   root: {
     fontFamily: 'Lemon_400Regular',
-    fontSize: 60,
-    lineHeight: 70,
+    fontSize: 50,
+    lineHeight: 50,
     textAlign: 'left',
     color: defaultStyles.colors.white,
   },
-  small: {
-    fontSize: 40,
-    lineHeight: 50,
-  },
   tablet: {
-    fontSize: 100,
-    lineHeight: 120,
+    fontSize: 80,
+    lineHeight: 80,
+  },
+  small: {
+    fontSize: 30,
+    lineHeight: 30,
   },
   smallTablet: {
-    fontSize: 65,
-    lineHeight: 75,
+    fontSize: 50,
+    lineHeight: 50,
   },
 });
 

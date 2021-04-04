@@ -14,7 +14,7 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
 
   return (
     <RegularScreen>
-      <Comment text='You are good!' />
+      <Comment style={styles.comment} text='You are good!' />
       <Image
         testID='image'
         style={[styles.image, isTablet && styles.imageTablet]}
@@ -39,6 +39,9 @@ function GuessKanaEndScreen({ onMailPress, onRestartPress }) {
 }
 
 const styles = StyleSheet.create({
+  comment: {
+    textAlign: 'center',
+  },
   image: {
     width: 270,
     height: 145,

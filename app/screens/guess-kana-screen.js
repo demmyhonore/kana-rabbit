@@ -169,7 +169,7 @@ export default function GuessKanaScreen({ navigation }) {
       <InputScreen
         currentKana={currentKana}
         answer={answer}
-        commentText='Try again..'
+        commentText='Try again!'
         answerStatus={answerStatus}
         onAnswerChange={onAnswerChange}
         onRestartPress={handleRestartPress}
@@ -185,7 +185,7 @@ export default function GuessKanaScreen({ navigation }) {
         onPlaySoundPress={() => playSound(currentKanaSound)}
         onContinuePress={() => setAnswerStatus(answerEnum.status.WRONG)}
         currentKana={currentKana}
-        commentText='Oh no.. correct sound is: '
+        commentText='Oh no! Correct sound is: '
       />
     );
   }
@@ -194,7 +194,7 @@ export default function GuessKanaScreen({ navigation }) {
     <InputScreen
       currentKana={currentKana}
       answer={answer}
-      commentText='Yes.. ?'
+      commentText='Guess..'
       onAnswerChange={onAnswerChange}
       onRestartPress={handleRestartPress}
       onSoundTogglePress={handleSoundTogglePress}

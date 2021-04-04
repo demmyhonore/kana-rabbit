@@ -7,6 +7,7 @@ import defaultStyles from '../config/styles';
 import { useSettings } from '../context/settings';
 import RegularScreen from '../components/regular-screen';
 import Comment from '../components/comment';
+import Character from '../components/character';
 import Option from '../components/option';
 import OptionText from '../components/option-text';
 import Action from '../components/action';
@@ -39,14 +40,15 @@ export default function ChooseTypeScreen({ navigation }) {
       onPress={() => handleOptionPress(value)}
       isSelected={selected[value]}
     >
-      <OptionText text={text} style={styles.firstOptionText} />
+      <OptionText text={text} style={styles.optionText} />
       <OptionText text={kana} />
     </Option>
   );
 
   return (
     <RegularScreen>
-      <Comment style={styles.comment} text='Which kana then..?' />
+      <Comment style={styles.comment} text='Practice what kana?' />
+      <Character />
       <View style={styles.options}>
         {renderOption('Hiragana', settingsEnum.kanaType.HIRAGANA, 'あ')}
         {renderOption('Katakana', settingsEnum.kanaType.KATAKANA, 'ア')}
@@ -54,7 +56,6 @@ export default function ChooseTypeScreen({ navigation }) {
         {renderOption('Combined', settingsEnum.kanaType.COMBINED, 'きゃ')}
       </View>
       <Action
-        style={styles.action}
         onPress={handleActionPress}
         text='Select'
         isDisabled={noSelection}
@@ -68,12 +69,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   options: {
-    width: '100%',
+    width: '90%',
   },
-  firstOptionText: {
+  optionText: {
     marginRight: defaultStyles.spacing.s0,
-  },
-  action: {
-    marginBottom: defaultStyles.spacing.s3,
   },
 });

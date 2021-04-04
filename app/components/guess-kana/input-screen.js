@@ -7,6 +7,7 @@ import * as answerEnum from '../../enum/answer';
 import defaultStyles from '../../config/styles';
 import { useDetectTablet } from '../../hooks/use-detect-tablet';
 import KeyboardScreen from '../keyboard-screen';
+import Character from '../character';
 import Comment from '../comment';
 import CurrentKana from '../current-kana';
 import KanaInput from '../kana-input';
@@ -29,21 +30,16 @@ function GuessKanaInputScreen({
 
   return (
     <KeyboardScreen>
+      <IconButton
+        style={isTablet ? styles.menuTablet : styles.menu}
+        testID='menu-icon'
+        name='menu'
+        onPress={() => ''}
+        isSmall
+      />
       <View style={[styles.top, isTablet && styles.topTablet]}>
-        <Comment text={commentText} isSmall />
-        <View style={styles.topActions}>
-          <IconButton
-            testID='restart-icon'
-            style={styles.iconRestart}
-            name='restart'
-            onPress={onRestartPress}
-          />
-          <IconButton
-            testID={soundOn ? 'volume-icon' : 'volume-off-icon'}
-            name={soundOn ? 'volume-medium' : 'volume-off'}
-            onPress={onSoundTogglePress}
-          />
-        </View>
+        <Character style={styles.character} isSmall />
+        <Comment style={styles.fill} text={commentText} isSmall />
       </View>
       <View>
         <CurrentKana
@@ -67,18 +63,21 @@ function GuessKanaInputScreen({
 const styles = StyleSheet.create({
   top: {
     width: '100%',
-    paddingRight: 50,
-    minHeight: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  topTablet: {
-    paddingRight: 75,
+  character: {
+    marginRight: defaultStyles.spacing.s1,
   },
-  topActions: {
+  menu: {
     position: 'absolute',
-    right: 0,
+    top: defaultStyles.spacing.s1,
+    right: defaultStyles.spacing.s2,
   },
-  iconRestart: {
-    marginBottom: defaultStyles.spacing.s2,
+  menuTablet: {
+    position: 'absolute',
+    top: defaultStyles.spacing.s2,
+    right: 0,
   },
   inputCorrect: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,

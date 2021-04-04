@@ -24,18 +24,18 @@ export default function CurrentKana({ kana, isCombined }) {
 
 const styles = StyleSheet.create({
   root: {
-    fontSize: 180,
+    fontSize: 160,
     textAlign: 'center',
     color: defaultStyles.colors.white,
   },
   combined: {
-    fontSize: 120,
+    fontSize: 100,
   },
   tablet: {
-    fontSize: 300,
+    fontSize: 260,
   },
   combinedTablet: {
-    fontSize: 200,
+    fontSize: 180,
   },
 });
 

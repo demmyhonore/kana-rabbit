@@ -27,13 +27,13 @@ export default function Option({ onPress, isSelected, children }) {
 const styles = StyleSheet.create({
   root: {
     backgroundColor: defaultStyles.colors.paleOrange,
-    height: 55,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: defaultStyles.spacing.s0,
   },
   tablet: {
-    height: 90,
+    height: 75,
   },
   selected: {
     backgroundColor: defaultStyles.colors.chiffon,

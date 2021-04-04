@@ -33,14 +33,14 @@ export default function Action({
 const styles = StyleSheet.create({
   root: {
     backgroundColor: defaultStyles.colors.paleLimeGreen,
-    height: 55,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     paddingLeft: defaultStyles.spacing.s3,
     paddingRight: defaultStyles.spacing.s3,
   },
   rootTablet: {
-    height: 90,
+    height: 75,
   },
   disabled: {
     backgroundColor: defaultStyles.colors.lightGray,
